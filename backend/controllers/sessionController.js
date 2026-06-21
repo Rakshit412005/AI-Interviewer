@@ -7,7 +7,11 @@ import FormData from "form-data"; // <-- NEW: For sending files to FastAPI
 import path from "path";
 import mongoose from "mongoose";
 // URL for the Python AI Microservice (Must match Step 6 setup)
-const AI_SERVICE_URL = "http://127.0.0.1:8000";
+const AI_SERVICE_URL = process.env.AI_SERVICE_URL;
+
+if (!AI_SERVICE_URL) {
+  throw new Error("AI_SERVICE_URL environment variable is missing");
+}
 
 // Helper function to send an update via Socket.io
 const pushSocketUpdate = (
