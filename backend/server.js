@@ -17,9 +17,11 @@ const app = express();
 const server = http.createServer(app);
 
 const allowedOrigin = [
-    'http://localhost:5174',
-    'http://localhost:5173',
-]
+  "http://localhost:5174",
+  "http://localhost:5173",
+  "https://ai-interviewer-chi-six.vercel.app",
+  "https://ai-interviewer-khpowixv3-rakshits-projects-3b61802b.vercel.app",
+];
 
 const io = new Server(server, {
     cors: {
