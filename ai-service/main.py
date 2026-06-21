@@ -22,7 +22,7 @@ from pydub import AudioSegment
 
 load_dotenv()
 
-AI_SERVICE_PORT = int(os.getenv("AI_SERVICE_PORT", 8000))
+AI_SERVICE_PORT = int(os.getenv("PORT", os.getenv("AI_SERVICE_PORT", 8000)))
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY", "").strip()
 GEMINI_MODEL_NAME = os.getenv("GEMINI_MODEL_NAME", "gemini-2.0-flash").strip()
 
