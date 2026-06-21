@@ -52,6 +52,8 @@ The project uses three services:
 - **Backend**: Handles authentication, session management, database operations, and communication with the AI service.
 - **AI Service**: Generates interview questions, transcribes voice answers, and evaluates responses using AI.
 
+````
+
 ## Project Structure
 
 ```bash
