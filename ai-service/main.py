@@ -41,7 +41,7 @@ WHISPER_MODEL = None
 
 try:
     print("Loading Whisper Model ...")
-    WHISPER_MODEL = whisper.load_model("tiny.en")
+    WHISPER_MODEL = whisper.load_model("base.en")
     print("Whisper Model Loaded Successfully")
 except Exception as e:
     print("Error while loading Whisper Model")
