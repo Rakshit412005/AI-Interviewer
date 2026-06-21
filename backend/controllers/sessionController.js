@@ -82,6 +82,7 @@ const createSession = asyncHandler(async (req, res) => {
 
       // B. Call the Python AI Microservice
       // backend/controllers/sessionController.js inside createSession
+      console.log("AI URL:", `${AI_SERVICE_URL}/generate-questions`);
       const aiResponse = await fetch(`${AI_SERVICE_URL}/generate-questions`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -92,16 +93,15 @@ const createSession = asyncHandler(async (req, res) => {
           interview_type: interviewType, // ADD THIS LINE
         }),
       });
+      console.log("AI Status:", aiResponse.status);
 
+      const rawText = await aiResponse.text();
+      console.log("AI Response:", rawText);
       if (!aiResponse.ok) {
-        // If the AI service returns a non-200 status
-        const errorBody = await aiResponse.text();
-        throw new Error(
-          `AI Service error: ${aiResponse.status} - ${errorBody}`,
-        );
+        throw new Error(`AI Service error: ${aiResponse.status} - ${rawText}`);
       }
 
-      const aiData = await aiResponse.json();
+      const aiData = JSON.parse(rawText);
       const codingCount =
         interviewType === "coding-mix" ? Math.ceil(count * 0.5) : 0;
       // C. Map the raw questions into the structured Mongoose sub-document format
