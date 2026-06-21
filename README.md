@@ -1,7 +1,3 @@
-Understood. I’ll keep it project-focused and omit your name.
-
-Here is a clean README you can paste in place of the current one:
-
 ````md
 # AI Interviewer
 
