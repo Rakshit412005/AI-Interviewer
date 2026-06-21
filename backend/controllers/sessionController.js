@@ -1,4 +1,6 @@
 // backend/controllers/sessionController.js
+import dotenv from "dotenv";
+dotenv.config();
 import asyncHandler from "express-async-handler";
 import Session from "../models/SessionModel.js";
 import fetch from "node-fetch"; // Standard for making HTTP requests (npm install node-fetch@2.6.1)
