@@ -1,0 +1,11 @@
+fastapi
+uvicorn
+pydantic
+python-dotenv
+google-genai
+openai-whisper
+pydub
+ffmpeg-python
+python-multipart
+torch
+numpy
