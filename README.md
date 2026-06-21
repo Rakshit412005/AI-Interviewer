@@ -1,7 +1,7 @@
 ````md
 # AI Interviewer
 
-AI Interviewer is a full-stack mock interview platform that helps users practice technical interviews with AI-generated questions, speech-based answers, and instant feedback. It supports both coding and oral responses, stores interview history, and provides performance summaries after each session.
+AI Interviewer is a full-stack mock interview platform that helps users practice technical interviews with AI-generated questions, speech-based answers, code-based answers and instant feedback. It supports both coding and oral responses, stores interview history, and provides performance summaries after each session.
 
 ## Features
 
