@@ -1,166 +1,191 @@
+Understood. I’ll keep it project-focused and omit your name.
 
-# 🧠 AI-Powered Technical Interview Prepper
+Here is a clean README you can paste in place of the current one:
 
-A full-stack application designed to simulate real-world technical interviews. It allows users to practice answering conceptual and coding questions verbally and programmatically, receiving instant, AI-driven feedback on their performance.
+````md
+# AI Interviewer
 
-## ✨ Key Features
+AI Interviewer is a full-stack mock interview platform that helps users practice technical interviews with AI-generated questions, speech-based answers, and instant feedback. It supports both coding and oral responses, stores interview history, and provides performance summaries after each session.
 
-* **Customizable Interviews**: Select Role (MERN, Python, Data Science), Difficulty Level, and Interview Type (Oral vs. Coding Mix).
-* **Hybrid Input System**:
-* **🎙️ Voice Response**: Uses **OpenAI Whisper** to transcribe verbal answers for conceptual questions.
-* **💻 Code Editor**: Integrated **Monaco Editor** for solving coding challenges directly in the browser.
+## Features
 
+- Role-based interview generation
+- Support for multiple difficulty levels
+- Coding + oral interview modes
+- Voice answer capture and transcription
+- Code editor for programming answers
+- AI evaluation with score and feedback
+- Interview history and review page
+- Google login
+- JWT-based authentication
+- Real-time session updates
+- Responsive UI for desktop and mobile
 
-* **AI Microservice Architecture**:
-* **Question Generation**: dynamically creates unique interview questions using **Ollama (Mistral)**.
-* **Smart Evaluation**: Analyzes both code logic and verbal transcription to provide a **Technical Score** and **Confidence Score**.
+## Tech Stack
 
+### Frontend
+- React
+- Vite
+- Redux Toolkit
+- React Router
+- Tailwind CSS
+- Monaco Editor
+- Socket.IO client
 
-* **Detailed Analytics**:
-* Session history with global scores.
-* Per-question breakdown showing user submission vs. ideal implementation.
-* Performance charts using **Chart.js**.
+### Backend
+- Node.js
+- Express.js
+- MongoDB
+- Mongoose
+- JWT
+- Socket.IO
 
+### AI Service
+- Python
+- FastAPI
+- Gemini 3.1 Flash Lite
+- Whisper
+- FFmpeg
+- PyDub
 
-* **Secure Authentication**: JWT-based user login and registration.
+## Architecture
 
----
+The project uses three services:
 
-## 🛠️ Tech Stack
+- **Frontend**: Handles the user interface, interview flow, code editor, voice recording, and results pages.
+- **Backend**: Handles authentication, session management, database operations, and communication with the AI service.
+- **AI Service**: Generates interview questions, transcribes voice answers, and evaluates responses using AI.
 
-### **Frontend**
-
-* **Framework**: React (Vite)
-* **State Management**: Redux Toolkit
-* **Styling**: Tailwind CSS
-* **Editor**: `@monaco-editor/react`
-* **Visualization**: Chart.js / React-Chartjs-2
-* **Routing**: React Router Dom
-
-### **Backend (API Gateway)**
-
-* **Runtime**: Node.js
-* **Framework**: Express.js
-* **Database**: MongoDB (Mongoose)
-* **Authentication**: JSON Web Tokens (JWT) & bcryptjs
-
-### **AI Microservice**
-
-* **Runtime**: Python 3.9+
-* **Framework**: FastAPI
-* **LLM Engine**: Ollama (running `mistral` locally)
-* **Speech-to-Text**: OpenAI Whisper (`base.en` model)
-* **Audio Processing**: PyDub / FFMPEG
-
----
-
-## 🚀 Getting Started
-
-### Prerequisites
-
-1. **Node.js** (v16+) and **npm**.
-2. **Python** (v3.9+) and **pip**.
-3. **MongoDB**: Local instance or Atlas URI.
-4. **Ollama**: Installed and running locally.
-* Install from [ollama.com](https://ollama.com).
-* Pull the model: `ollama pull mistral`.
-
-
-5. **FFmpeg**: Required for audio processing (should be in your system PATH).
-
-### 1. Clone the Repository
+## Project Structure
 
 ```bash
-git clone https://github.com/siddhantsaxenaofficial/ai-interviewer.git
-cd ai-interviewer
+AI_INTERVIEWER/
+├── ai-service/
+├── backend/
+├── frontend/
+├── README.md
+└── .gitignore
+````
 
+## Local Setup
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/<your-username>/AI-Interviewer.git
+cd AI-Interviewer
 ```
 
-### 2. Backend Setup (Node.js)
+### 2. Backend setup
 
 ```bash
 cd backend
 npm install
-
-# Create a .env file
-echo "PORT=5000" > .env
-echo "MONGO_URI=your_mongodb_connection_string" >> .env
-echo "JWT_SECRET=your_jwt_secret" >> .env
-echo "NODE_ENV=development" >> .env
-
-# Run the server
-npm run server
-
 ```
 
-### 3. AI Service Setup (Python)
+Create a `.env` file in the `backend` folder:
+
+```env
+MONGO_URI=your_mongodb_connection_string
+PORT=5000
+JWT_SECRET=your_jwt_secret
+GOOGLE_CLIENT_ID=your_google_client_id
+NODE_ENV=development
+```
+
+Start the backend:
 
 ```bash
-cd ../ai_service
-
-# Create virtual environment
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-
-# Install dependencies
-pip install fastapi uvicorn ollama openai-whisper pydub python-dotenv
-
-# Create a .env file
-echo "AI_SERVICE_PORT=8000" > .env
-echo "OLLAMA_MODEL_NAME=mistral" >> .env
-
-# Run the microservice
-uvicorn main:app --reload --port 8000
-
+npm run dev
 ```
 
-### 4. Frontend Setup (React)
+### 3. AI service setup
+
+```bash
+cd ../ai-service
+python -m venv venv
+venv\Scripts\activate
+pip install -r requirements.txt
+```
+
+Create a `.env` file in the `ai-service` folder:
+
+```env
+AI_SERVICE_PORT=8000
+GEMINI_MODEL_NAME=gemini-3.1-flash-lite
+GEMINI_API_KEY=your_gemini_api_key
+```
+
+Start the AI service:
+
+```bash
+python main.py
+```
+
+### 4. Frontend setup
 
 ```bash
 cd ../frontend
 npm install
+```
 
-# Create a .env file
-echo "VITE_API_URL=http://localhost:5000/api" > .env
+Create a `.env` file in the `frontend` folder:
 
-# Run the frontend
+```env
+VITE_API_URL=http://localhost:5000/api
+VITE_GOOGLE_CLIENT_ID=your_google_client_id
+```
+
+Start the frontend:
+
+```bash
 npm run dev
-
 ```
-### or shortcut
 
-```
-CLICK ON FOR-FIRST-TIME.BAT FILE AND RUN
+## Important Setup Notes
 
-```
----
+* FFmpeg must be installed and available in system PATH for voice transcription.
+* The same Google Client ID should be used in both backend and frontend `.env` files.
+* Do not commit `.env` files or `venv` to GitHub.
+* Make sure the backend and AI service are both running before starting an interview.
 
-## 📐 Architecture Overview
+## Interview Flow
 
-The application follows a microservices-inspired architecture to separate heavy AI processing from the main application logic.
+1. User logs in or registers.
+2. User selects role, level, number of questions, and interview type.
+3. The AI service generates interview questions.
+4. The user answers through voice and/or code.
+5. The backend sends the answer to the AI service for transcription and evaluation.
+6. Feedback, scores, and ideal answers are stored in MongoDB.
+7. The user can review the full session after completion.
 
-1. **Client (React)**: Handles UI, Audio Recording, and Code Editing. Sends data to Node.js.
-2. **Node.js Server**: Acts as the API Gateway. Handles Auth, Database storage, and forwards AI tasks to the Python service.
-3. **Python Service**:
-* Receives `POST /generate-questions`.
-* Receives `POST /transcribe` (Audio -> Text).
-* Receives `POST /evaluate` (Text/Code -> Score/Feedback JSON).
+## Deployment
 
+The project is designed to be deployed in three parts:
 
-4. **Ollama**: The local LLM engine that powers the generation and evaluation logic.
+* Frontend: Vercel
+* Backend: Render
+* AI Service: Render
 
----
+The AI service uses Whisper and FFmpeg, so deployment should ensure those dependencies are available in the runtime environment.
 
-## 🤝 Contributing
+## Challenges Solved During Development
 
-Contributions are welcome! Please fork the repository and submit a pull request.
+* Fixed Python FFmpeg path issues for Whisper transcription
+* Solved Gemini quota limitations by moving to a higher-RPD model
+* Corrected question-type mapping between frontend/backend and AI service
+* Fixed interview completion flow
+* Added Google login
+* Improved AI evaluation scoring consistency
 
-1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the Branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+## Future Improvements
 
-## 📄 License
+* Batch evaluation to reduce API calls per interview
+* Additional interview roles
+* Better analytics on performance trends
+* Optional custom timer and proctoring features
 
-Distributed under the MIT License. See `LICENSE` for more information.
+## License
+
+This project is open for educational and demonstration purposes.
+
