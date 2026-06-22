@@ -15,6 +15,43 @@ if (!AI_SERVICE_URL) {
   throw new Error("AI_SERVICE_URL environment variable is missing");
 }
 
+const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+const fetchWithRetry = async (
+  url,
+  options,
+  retries = 3,
+  delay = 3000,
+) => {
+  for (let attempt = 1; attempt <= retries; attempt++) {
+    try {
+      const response = await fetch(url, options);
+
+      if (response.ok) {
+        return response;
+      }
+
+      console.log(
+        `Attempt ${attempt}: ${url} returned ${response.status}`,
+      );
+
+      if (attempt === retries) {
+        return response;
+      }
+    } catch (err) {
+      console.log(
+        `Attempt ${attempt}: ${url} failed -> ${err.message}`,
+      );
+
+      if (attempt === retries) {
+        throw err;
+      }
+    }
+
+    await sleep(delay);
+  }
+};
+
 // Helper function to send an update via Socket.io
 const pushSocketUpdate = (
   io,
@@ -83,7 +120,7 @@ const createSession = asyncHandler(async (req, res) => {
       // B. Call the Python AI Microservice
       // backend/controllers/sessionController.js inside createSession
       console.log("AI URL:", `${AI_SERVICE_URL}/generate-questions`);
-      const aiResponse = await fetch(`${AI_SERVICE_URL}/generate-questions`, {
+      const aiResponse = await fetchWithRetry(`${AI_SERVICE_URL}/generate-questions`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -242,11 +279,16 @@ const evaluateAnswerAsync = async (
       const formData = new FormData();
       formData.append("file", fs.createReadStream(audioFilePath));
 
-      const transResponse = await fetch(`${AI_SERVICE_URL}/transcribe`, {
-        method: "POST",
-        body: formData,
-        headers: formData.getHeaders(),
-      });
+      const transResponse = await fetchWithRetry(
+        `${AI_SERVICE_URL}/transcribe`,
+        {
+          method: "POST",
+          body: formData,
+          headers: formData.getHeaders(),
+        },
+        3,
+        5000,
+      );
 
       console.log("TRANSCRIBE URL:", `${AI_SERVICE_URL}/transcribe`);
       console.log("TRANSCRIBE STATUS:", transResponse.status);
