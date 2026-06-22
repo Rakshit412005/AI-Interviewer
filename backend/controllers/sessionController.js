@@ -248,9 +248,17 @@ const evaluateAnswerAsync = async (
         headers: formData.getHeaders(),
       });
 
-      if (!transResponse.ok) throw new Error("Transcription service failed");
+      console.log("TRANSCRIBE URL:", `${AI_SERVICE_URL}/transcribe`);
+      console.log("TRANSCRIBE STATUS:", transResponse.status);
 
-      const transData = await transResponse.json();
+      const transRaw = await transResponse.text();
+      console.log("TRANSCRIBE RESPONSE:", transRaw);
+
+      if (!transResponse.ok) {
+        throw new Error(`Transcription service failed: ${transRaw}`);
+      }
+
+      const transData = JSON.parse(transRaw);
 
       console.log("\n===== TRANSCRIPTION RESPONSE =====");
       console.log(transData);
