@@ -1,3 +1,4 @@
+import traceback
 import uvicorn
 import os
 import shutil
@@ -39,13 +40,13 @@ app.add_middleware(
 
 WHISPER_MODEL = None
 
-try:
-    print("Loading Whisper Model ...")
-    WHISPER_MODEL = whisper.load_model("tiny.en")
-    print("Whisper Model Loaded Successfully")
-except Exception as e:
-    print("Error while loading Whisper Model")
-    print(e)
+def get_whisper_model():
+    global WHISPER_MODEL
+    if WHISPER_MODEL is None:
+        print("Loading Whisper Model ...")
+        WHISPER_MODEL = whisper.load_model("tiny.en")
+        print("Whisper Model Loaded Successfully")
+    return WHISPER_MODEL
 
 
 class QuestionResquest(BaseModel):
@@ -128,10 +129,16 @@ async def root():
         "message": "Hello from AI Interviewer Microservice!",
         "model": GEMINI_MODEL_NAME,
     }
+@app.get("/healthz")
+async def healthz():
+    return {"status": "ok"}
 
 
 @app.post("/generate-questions", response_model=QuestionResponse)
 async def generate_questions(request: QuestionResquest):
+    print("\n===== GENERATE QUESTIONS REQUEST =====")
+    print(request.model_dump())
+    print("=====================================\n")
     try:
         role_instruction = ""
         if request.interview_type == "coding-mix":
@@ -190,6 +197,7 @@ async def generate_questions(request: QuestionResquest):
             config=config,
         )
 
+
         raw_text = (response.text or "").strip()
         try:
             parsed = QuestionsPayload.model_validate_json(raw_text)
@@ -210,23 +218,28 @@ async def generate_questions(request: QuestionResquest):
     except HTTPException:
         raise
     except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+            print("\n===== GENERATE QUESTIONS ERROR =====")
+            traceback.print_exc()
+            print("===================================\n")
+            raise HTTPException(status_code=500, detail=str(e))
 
 
 @app.post("/transcribe")
 async def transcribe_audio(file: UploadFile = File(...)):
     try:
         print("TRANSCRIBE ENDPOINT HIT")
+        print("FILE:", file.filename, file.content_type)
+
         audio_bytes = await file.read()
+        print("AUDIO SIZE:", len(audio_bytes))
 
         with tempfile.NamedTemporaryFile(delete=False, suffix=".webm") as tmp:
             tmp.write(audio_bytes)
             temp_audio_path = tmp.name
 
-        if not WHISPER_MODEL:
-            raise HTTPException(status_code=503, detail="Whisper Model is not loaded")
+        
 
-        result = WHISPER_MODEL.transcribe(temp_audio_path)
+        result = get_whisper_model().transcribe(temp_audio_path)
         print("\n===== WHISPER TRANSCRIPTION =====")
         print(result)
         print("=================================\n")

@@ -127,10 +127,7 @@ const createSession = asyncHandler(async (req, res) => {
         session,
       );
     } catch (error) {
-      console.error(
-        `Session Creation Failure for ${session._id}:`,
-        error.message,
-      );
+      console.error(`Session Creation Failure for ${session._id}:`, error);
 
       // F. Handle failure: Update status and notify client
       session.status = "failed";
