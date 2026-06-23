@@ -1,4 +1,4 @@
-# Due to Render's free instance this application services are currently facing very serious issues, Trying to fix it ASAP also the code in the github is complete.
+# Due to Render's free instance this application's services are currently facing very serious irregularity issues, Trying to fix it ASAP also the code in the github is complete.
 
 ````md
 # AI Interviewer
