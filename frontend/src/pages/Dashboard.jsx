@@ -94,7 +94,7 @@ const Dashboard = () => {
   const wakeAIService = async () => {
     try {
       setAiLoading(true);
-      toast.info("Starting AI services... Please wait.");
+      toast.info("Starting AI services... Please wait.",{autoClose: 5000,});
 
       const response = await fetch(`${AI_SERVICE_URL}/healthz`, {
         method: "GET",
@@ -102,13 +102,13 @@ const Dashboard = () => {
 
       if (response.ok) {
         setAiReady(true);
-        toast.success("AI services are ready. You can start the interview.");
+        toast.success("AI services are ready. You can start the interview.",{autoClose: 5000,});
       } else {
-        toast.error("AI services could not be started right now.");
+        toast.error("AI services could not be started right now.",{autoClose: 5000,});
       }
     } catch (error) {
       console.error("AI wakeup failed:", error);
-      toast.error("AI services are still waking up. Try again in a moment.");
+      toast.error("AI services are still waking up. Try again in a moment.",{autoClose: 5000,});
     } finally {
       setAiLoading(false);
     }
