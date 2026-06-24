@@ -119,6 +119,7 @@ const createSession = asyncHandler(async (req, res) => {
 
       // B. Call the Python AI Microservice
       // backend/controllers/sessionController.js inside createSession
+      await fetchWithRetry(`${AI_SERVICE_URL}/healthz`, { method: "GET" }, 5, 10000);
       console.log("AI URL:", `${AI_SERVICE_URL}/generate-questions`);
       const aiResponse = await fetchWithRetry(`${AI_SERVICE_URL}/generate-questions`, {
         method: "POST",
@@ -286,8 +287,8 @@ const evaluateAnswerAsync = async (
           body: formData,
           headers: formData.getHeaders(),
         },
-        3,
-        5000,
+        5,
+        10000,
       );
 
       console.log("TRANSCRIBE URL:", `${AI_SERVICE_URL}/transcribe`);
