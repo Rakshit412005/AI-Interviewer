@@ -165,7 +165,7 @@ const Dashboard = () => {
           </h2>
         </div>
         <p
-          className={`px-6 sm:px-8 pb-2 text-sm font-semibold ${
+          className={`px-6 sm:px-8 pb-2 text-lg mt-2 font-semibold ${
             aiLoading
               ? "text-yellow-600"
               : aiReady
