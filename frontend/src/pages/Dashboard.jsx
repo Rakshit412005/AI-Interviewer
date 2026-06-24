@@ -94,7 +94,7 @@ const Dashboard = () => {
   const wakeAIService = async () => {
     try {
       setAiLoading(true);
-      toast.info("Starting AI services... Please wait.",{autoClose: 5000,});
+      toast.info("Starting AI services... Please wait, It can take about a minute.",{autoClose: 5000,});
 
       const response = await fetch(`${AI_SERVICE_URL}/healthz`, {
         method: "GET",
