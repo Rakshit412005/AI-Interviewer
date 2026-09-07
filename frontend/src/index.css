@@ -2,7 +2,169 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  :root {
+    /* --- Light Theme (Calm, High-Precision Cool Mineral Off-White) --- */
+    --color-canvas: #f3f7f5;
+    --color-canvas-subtle: #e9f1ed;
+    --color-surface-elevated: #ffffff;
+    --color-surface-card: #ffffff;
+    --color-surface-inset: #ecf3ef;
+    --color-surface-hover: #f7faf8;
+    --color-text-main: #0b2017;
+    --color-text-muted: #3f5d50;
+    --color-text-subtle: #678577;
+    --color-text-inverse: #ffffff;
+    --color-border-subtle: rgba(6, 78, 59, 0.12);
+    --color-border-active: rgba(5, 150, 105, 0.45);
+    --glass-bg: rgba(255, 255, 255, 0.90);
+    --glass-border: rgba(6, 78, 59, 0.10);
+    --ambient-glow: rgba(5, 150, 105, 0.06);
+  }
 
-body {
-  @apply bg-gray-50;
+  .dark {
+    /* --- Dark Theme (Sophisticated Dark Emerald-Slate Canvas, NOT pitch black) --- */
+    --color-canvas: #0d1514;
+    --color-canvas-subtle: #111a19;
+    --color-surface-elevated: #131f1d;
+    --color-surface-card: #172523;
+    --color-surface-inset: #0f1a19;
+    --color-surface-hover: #1c2e2b;
+    --color-text-main: #f0fdf4;
+    --color-text-muted: #9ab3a7;
+    --color-text-subtle: #657f73;
+    --color-text-inverse: #091210;
+    --color-border-subtle: rgba(20, 184, 166, 0.13);
+    --color-border-active: rgba(16, 185, 129, 0.45);
+    --glass-bg: rgba(19, 31, 29, 0.88);
+    --glass-border: rgba(255, 255, 255, 0.08);
+    --ambient-glow: rgba(16, 185, 129, 0.12);
+  }
+
+  body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    background-color: var(--color-canvas);
+    color: var(--color-text-main);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    transition: background-color 0.25s ease, color 0.25s ease;
+    min-height: 100vh;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: '"Plus Jakarta Sans"', 'Inter', system-ui, sans-serif;
+    letter-spacing: -0.025em;
+  }
+
+  /* Accessible Focus Standard */
+  :focus-visible {
+    outline: 2px solid #10b981;
+    outline-offset: 2px;
+  }
+
+  ::selection {
+    background-color: rgba(16, 185, 129, 0.35);
+    color: #34d399;
+  }
+}
+
+/* --- Reusable Glass & Layering Utilities --- */
+.glass-nav {
+  background: var(--glass-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--glass-border);
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05), 0 1px 2px -1px rgba(0, 0, 0, 0.05);
+}
+
+.dark .glass-nav {
+  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.25), inset 0 1px 0 0 rgba(255, 255, 255, 0.06);
+}
+
+/* Ambient Radial Mesh */
+.ambient-mesh {
+  background-image:
+    radial-gradient(at 10% 10%, var(--ambient-glow) 0px, transparent 45%),
+    radial-gradient(at 90% 90%, var(--ambient-glow) 0px, transparent 45%);
+}
+
+/* Minimal Modern Scrollbars */
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(16, 185, 129, 0.22);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(16, 185, 129, 0.45);
+}
+
+/* --- Dark Mode Surface Harmonizer (Bridges un-redesigned inner cards seamlessly) --- */
+.dark .bg-white {
+  background-color: var(--color-surface-card) !important;
+  color: var(--color-text-main) !important;
+  border-color: var(--color-border-subtle) !important;
+}
+
+.dark .bg-slate-50,
+.dark .bg-slate-100 {
+  background-color: var(--color-surface-inset) !important;
+  color: var(--color-text-main) !important;
+  border-color: var(--color-border-subtle) !important;
+}
+
+.dark .text-slate-900,
+.dark .text-slate-800 {
+  color: var(--color-text-main) !important;
+}
+
+.dark .text-slate-700,
+.dark .text-slate-600,
+.dark .text-slate-500,
+.dark .text-slate-400 {
+  color: var(--color-text-muted) !important;
+}
+
+.dark .border-slate-100,
+.dark .border-slate-200 {
+  border-color: var(--color-border-subtle) !important;
+}
+
+.dark .border-slate-300 {
+  border-color: rgba(255, 255, 255, 0.12) !important;
+}
+
+.dark .bg-teal-50 {
+  background-color: rgba(16, 185, 129, 0.12) !important;
+  border-color: rgba(16, 185, 129, 0.25) !important;
+}
+
+.dark .text-teal-700,
+.dark .text-teal-600 {
+  color: #34d399 !important;
+}
+
+.dark .shadow-slate-200,
+.dark .shadow-xl {
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.35) !important;
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

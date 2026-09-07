@@ -12,12 +12,16 @@ import InterviewRunner from './pages/InterviewRunner';
 import SessionReview from './pages/SessionReview';
 import NotFound from './pages/NotFound';
 
+import { useTheme } from './context/ThemeContext';
+
 const App = () => {
   useSocket();
+  const { theme } = useTheme();
+
   return (
-    <div className='min-h-screen bg-gray-50'>
+    <div className='min-h-screen bg-canvas text-content-main ambient-mesh flex flex-col transition-colors duration-200 relative'>
       <Header />
-      <main className='container mx-auto p-4'>
+      <main className='flex-grow container mx-auto px-4 sm:px-6 lg:px-8 py-6'>
         <Routes>
           <Route path='/login' element={<Login />} />
           <Route path='/register' element={<Register />} />
@@ -29,10 +33,8 @@ const App = () => {
           </Route>
           <Route path="*" element={<NotFound />} />
         </Routes>
-
       </main>
-      <ToastContainer position='top-right' autoClose={3000}/>
-
+      <ToastContainer position='top-right' autoClose={3000} theme={theme} />
     </div>
   )
 }
