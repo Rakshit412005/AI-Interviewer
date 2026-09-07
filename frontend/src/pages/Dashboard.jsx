@@ -9,6 +9,7 @@ import {
 } from "../features/sessions/sessionSlice";
 import { toast } from "react-toastify";
 import SessionCard from "../components/SessionCard";
+import ConfirmModal from "../components/ConfirmModal";
 
 const ROLES = [
   "MERN Stack Developer",
@@ -54,8 +55,11 @@ const Dashboard = () => {
   const [aiLoading, setAiLoading] = useState(false);
   const aiWakeStartedRef = useRef(false);
 
+  // In-App Modal State for Deletion
+  const [sessionToDelete, setSessionToDelete] = useState(null);
+
   const [formData, setFormData] = useState({
-    role: user.preferredRole || ROLES[0],
+    role: user?.preferredRole || ROLES[0],
     level: LEVELS[0],
     interviewType: TYPES[1].value,
     count: COUNTS[0],
@@ -94,7 +98,7 @@ const Dashboard = () => {
   const wakeAIService = async () => {
     try {
       setAiLoading(true);
-      toast.info("Starting AI services... Please wait, It can take about a minute.",{autoClose: 5000,});
+      toast.info("Starting AI services... Please wait, It can take about a minute.", { autoClose: 5000 });
 
       const response = await fetch(`${AI_SERVICE_URL}/healthz`, {
         method: "GET",
@@ -102,13 +106,13 @@ const Dashboard = () => {
 
       if (response.ok) {
         setAiReady(true);
-        toast.success("AI services are ready. You can start the interview.",{autoClose: 5000,});
+        toast.success("AI services are ready. You can start the interview.", { autoClose: 5000 });
       } else {
-        toast.error("AI services could not be started right now.",{autoClose: 5000,});
+        toast.error("AI services could not be started right now.", { autoClose: 5000 });
       }
     } catch (error) {
       console.error("AI wakeup failed:", error);
-      toast.error("AI services are still waking up. Try again in a moment.",{autoClose: 5000,});
+      toast.error("AI services are still waking up. Try again in a moment.", { autoClose: 5000 });
     } finally {
       setAiLoading(false);
     }
@@ -124,74 +128,99 @@ const Dashboard = () => {
     }
   };
 
-  const handleDelete = (e, sessionId) => {
+  const requestDelete = (e, sessionId) => {
     e.stopPropagation();
-    if (window.confirm("Are you sure you want to delete this session?")) {
-      dispatch(deleteSession(sessionId));
+    setSessionToDelete(sessionId);
+  };
+
+  const confirmDelete = () => {
+    if (sessionToDelete) {
+      dispatch(deleteSession(sessionToDelete));
       toast.error("Session Deleted");
+      setSessionToDelete(null);
     }
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6 sm:py-12 space-y-8 sm:space-y-12 animate-in duration-700">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-200 pb-6 sm:pb-8">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6 sm:py-10 space-y-8 sm:space-y-10 animate-in fade-in duration-300">
+      {/* Welcome Banner */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-line-subtle pb-6 sm:pb-8">
         <div>
-          <h1 className="text-2xl sm:text-4xl font-black text-slate-900 tracking-tight">
-            Welcome,{" "}
-            <span className="text-teal-600">
-              {user.name.split(" ")[0]}
-            </span>{" "}
+          <div className="inline-flex items-center gap-2 px-2.5 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400 text-xs font-semibold mb-2">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+            Interview Simulation Workspace
+          </div>
+          <h1 className="text-2xl sm:text-4xl font-extrabold text-content-main tracking-tight font-heading">
+            Welcome, <span className="text-emerald-500">{user?.name?.split(" ")[0]}</span>
           </h1>
-          <p className="text-slate-500 mt-1 text-sm sm:text-lg font-medium">
-            Ready for your technical prep?
+          <p className="text-content-muted mt-1 text-sm sm:text-base font-normal">
+            Configure a realistic technical interview with custom role specifications.
           </p>
         </div>
-        <div className="flex items-center gap-3">
-          <div className="bg-teal-50 px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl sm:rounded-2xl border border-teal-100 flex sm:block items-center gap-2">
-            <p className="text-[10px] text-teal-600 font-bold uppercase tracking-wider">
-              Total Sessions
-            </p>
-            <p className="text-xl sm:text-2xl font-black text-teal-700 leading-none">
-              {sessions.length}
-            </p>
+
+        <div className="flex items-center gap-3 shrink-0">
+          <div className="bg-surface-elevated px-4 py-2.5 rounded-2xl border border-line-subtle shadow-sm-subtle flex items-center gap-3">
+            <div className="w-9 h-9 rounded-xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center">
+              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+              </svg>
+            </div>
+            <div>
+              <p className="text-[10px] text-content-subtle font-bold uppercase tracking-wider">
+                Total Sessions
+              </p>
+              <p className="text-xl sm:text-2xl font-black text-content-main leading-none mt-0.5">
+                {sessions.length}
+              </p>
+            </div>
           </div>
         </div>
       </div>
-      <div className="bg-white rounded-2xl sm:rounded-[2.5rem] shadow-xl sm:shadow-2xl shadow-slate-200 border border-slate-100 overflow-hidden">
-        <div className="bg-slate-900 px-6 py-4 sm:px-8 sm:py-6">
-          <h2 className="text-lg font-bold text-white flex items-center">
-            <span className="bg-teal-500 w-1.5 h-5 rounded-full mr-3"></span>
-            New Interview
-          </h2>
+
+      {/* New Interview Configuration Card */}
+      <div className="bg-surface-card rounded-2xl border border-line-subtle shadow-sm-subtle overflow-hidden">
+        <div className="px-6 py-4 border-b border-line-subtle flex flex-col sm:flex-row sm:items-center justify-between gap-2 bg-surface-elevated">
+          <div className="flex items-center gap-2.5">
+            <div className="w-2.5 h-2.5 rounded-full bg-emerald-500" />
+            <h2 className="text-base font-bold text-content-main font-heading">
+              New Interview Configuration
+            </h2>
+          </div>
+
+          {/* AI Telemetry Status */}
+          <div className="flex items-center gap-2 text-xs font-medium">
+            <span
+              className={`w-2 h-2 rounded-full ${
+                aiLoading
+                  ? "bg-amber-400 animate-pulse ring-2 ring-amber-400/20"
+                  : aiReady
+                    ? "bg-emerald-500 ring-2 ring-emerald-500/20"
+                    : "bg-content-subtle"
+              }`}
+            />
+            <span className="text-content-muted">
+              {aiLoading
+                ? "Waking AI service..."
+                : aiReady
+                  ? "AI Service Online"
+                  : "AI Service Standby"}
+            </span>
+          </div>
         </div>
-        <p
-          className={`px-6 sm:px-8 pb-2 text-lg mt-2 font-semibold ${
-            aiLoading
-              ? "text-yellow-600"
-              : aiReady
-                ? "text-green-600"
-                : "text-slate-400"
-          }`}
-        >
-          {aiLoading
-            ? "Starting AI services..."
-            : aiReady
-              ? "AI services are ready."
-              : "AI services will start automatically."}
-        </p>
+
         <form
           onSubmit={onSubmit}
           className="p-6 sm:p-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 sm:gap-6 items-end"
         >
           <div className="space-y-1.5">
-            <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">
-              Role
+            <label className="text-[10px] font-bold text-content-muted uppercase tracking-wider ml-1">
+              Target Role
             </label>
             <select
               name="role"
               value={formData.role}
               onChange={onChange}
-              className="w-full bg-slate-50 border-none rounded-xl sm:rounded-2xl p-3 text-sm font-semibold text-slate-700 focus:ring-2 focus:ring-teal-500"
+              className="w-full bg-surface-inset border border-line-subtle rounded-xl p-3 text-sm font-semibold text-content-main focus:border-line-active focus:ring-2 focus:ring-emerald-500/20 outline-none transition-all [&>option]:bg-surface-elevated [&>option]:text-content-main"
             >
               {ROLES.map((role) => (
                 <option key={role} value={role}>
@@ -200,16 +229,17 @@ const Dashboard = () => {
               ))}
             </select>
           </div>
+
           <div className="grid grid-cols-2 gap-4 lg:contents">
             <div className="space-y-1.5">
-              <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">
-                Level
+              <label className="text-[10px] font-bold text-content-muted uppercase tracking-wider ml-1">
+                Seniority Level
               </label>
               <select
                 name="level"
                 value={formData.level}
                 onChange={onChange}
-                className="w-full bg-slate-50 border-none rounded-xl sm:rounded-2xl p-3 text-sm font-semibold text-slate-700 focus:ring-2 focus:ring-teal-500"
+                className="w-full bg-surface-inset border border-line-subtle rounded-xl p-3 text-sm font-semibold text-content-main focus:border-line-active focus:ring-2 focus:ring-emerald-500/20 outline-none transition-all [&>option]:bg-surface-elevated [&>option]:text-content-main"
               >
                 {LEVELS.map((level) => (
                   <option key={level} value={level}>
@@ -218,33 +248,35 @@ const Dashboard = () => {
                 ))}
               </select>
             </div>
+
             <div className="space-y-1.5">
-              <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">
-                Length
+              <label className="text-[10px] font-bold text-content-muted uppercase tracking-wider ml-1">
+                Question Count
               </label>
               <select
                 name="count"
                 value={formData.count}
                 onChange={onChange}
-                className="w-full bg-slate-50 border-none rounded-xl sm:rounded-2xl p-3 text-sm font-semibold text-slate-700 focus:ring-2 focus:ring-teal-500"
+                className="w-full bg-surface-inset border border-line-subtle rounded-xl p-3 text-sm font-semibold text-content-main focus:border-line-active focus:ring-2 focus:ring-emerald-500/20 outline-none transition-all [&>option]:bg-surface-elevated [&>option]:text-content-main"
               >
                 {COUNTS.map((count) => (
                   <option key={count} value={count}>
-                    {count} Qs
+                    {count} Questions
                   </option>
                 ))}
               </select>
             </div>
           </div>
+
           <div className="space-y-1.5">
-            <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">
-              Type
+            <label className="text-[10px] font-bold text-content-muted uppercase tracking-wider ml-1">
+              Interview Format
             </label>
             <select
               name="interviewType"
               value={formData.interviewType}
               onChange={onChange}
-              className="w-full bg-slate-50 border-none rounded-xl sm:rounded-2xl p-3 text-sm font-semibold text-slate-700 focus:ring-2 focus:ring-teal-500"
+              className="w-full bg-surface-inset border border-line-subtle rounded-xl p-3 text-sm font-semibold text-content-main focus:border-line-active focus:ring-2 focus:ring-emerald-500/20 outline-none transition-all [&>option]:bg-surface-elevated [&>option]:text-content-main"
             >
               {TYPES.map((type) => (
                 <option key={type.value} value={type.value}>
@@ -253,55 +285,92 @@ const Dashboard = () => {
               ))}
             </select>
           </div>
+
           <button
             type="submit"
             disabled={isProcessing}
-            className={`w-full h-[48px] rounded-xl font-bold text-white flex items-center justify-center gap-2 ${isProcessing ? "bg-slate-300" : "bg-teal-600 hover:bg-teal-700"}`}
+            className={`w-full h-[46px] rounded-xl font-bold text-white flex items-center justify-center gap-2 shadow-sm transition-all duration-150 active:scale-95 ${
+              isProcessing
+                ? "bg-surface-hover text-content-muted cursor-wait"
+                : "bg-emerald-600 hover:bg-emerald-500 focus-visible:ring-2 focus-visible:ring-emerald-500"
+            }`}
           >
             {isProcessing ? (
               <>
-                <span className="animate-spin h-4 w-4 border-2 border-white border-t-transparent rounded-full"></span>{" "}
-                Generating...
+                <span className="animate-spin h-4 w-4 border-2 border-white border-t-transparent rounded-full" />
+                <span className="text-sm">Preparing Session...</span>
               </>
             ) : (
-              <span className="text-sm">Start Interview</span>
+              <span className="text-sm flex items-center gap-2">
+                <span>Start Interview</span>
+                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                </svg>
+              </span>
             )}
           </button>
         </form>
-      </div>{" "}
-      {/* 3. Closing div for the card moved here */}
-      {/* HISTORY LIST (Now separate from the creation card) */}
-      <div className="space-y-6 pb-20 sm:pb-0">
-        <h2 className="text-xl sm:text-2xl font-black text-slate-800 flex items-center px-2">
-          <span className="w-8 h-8 sm:w-10 sm:h-10 bg-slate-100 rounded-lg sm:rounded-xl flex items-center justify-center mr-3 text-sm sm:text-lg">
-            📊
-          </span>{" "}
-          Interview History
-        </h2>
+      </div>
+
+      {/* History List Section */}
+      <div className="space-y-5 pb-16 sm:pb-8">
+        <div className="flex items-center justify-between px-1">
+          <h2 className="text-lg sm:text-xl font-bold text-content-main font-heading flex items-center gap-2.5">
+            <div className="w-8 h-8 rounded-lg bg-surface-elevated border border-line-subtle flex items-center justify-center text-emerald-600 dark:text-emerald-400">
+              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </div>
+            Interview History
+          </h2>
+          <span className="text-xs text-content-muted">
+            {sessions.length} recorded {sessions.length === 1 ? "session" : "sessions"}
+          </span>
+        </div>
+
         {isLoading && sessions.length === 0 ? (
-          <div className="flex items-center justify-center py-20">
-            <div className="animate-spin h-12 w-12 border-t-2 border-b-2 border-teal-500 rounded-full"></div>
+          <div className="flex items-center justify-center py-20 bg-surface-card border border-line-subtle rounded-2xl">
+            <div className="animate-spin h-10 w-10 border-2 border-emerald-500 border-t-transparent rounded-full" />
           </div>
         ) : sessions.length === 0 ? (
-          <div className="bg-slate-50 border-2 border-dashed border-slate-200 rounded-2xl sm:rounded-[2rem] py-16 sm:py-20 text-center">
-            <p className="text-slate-400 font-bold text-base sm:text-lg">
-              No sessions yet.
+          <div className="bg-surface-card border-2 border-dashed border-line-subtle rounded-2xl py-16 sm:py-20 text-center px-4">
+            <div className="w-12 h-12 rounded-2xl bg-surface-inset text-content-muted flex items-center justify-center mx-auto mb-3">
+              <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.8">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+              </svg>
+            </div>
+            <p className="text-content-main font-bold text-base">No interview sessions recorded yet</p>
+            <p className="text-content-muted text-sm mt-1 max-w-sm mx-auto">
+              Configure your desired role and question length above to start your first technical interview practice.
             </p>
           </div>
         ) : (
-          <div className="space-y-4">
+          <div className="space-y-3 sm:space-y-4">
             {sessions.map((session) => (
               <SessionCard
                 key={session._id}
                 session={session}
                 onClick={viewSession}
-                onDelete={handleDelete}
+                onDelete={requestDelete}
               />
             ))}
           </div>
         )}
       </div>
+
+      {/* In-App Confirmation Modal for Session Deletion */}
+      <ConfirmModal
+        isOpen={Boolean(sessionToDelete)}
+        title="Delete Interview Session"
+        description="Are you sure you want to permanently delete this interview session? This action cannot be undone."
+        confirmText="Delete Session"
+        cancelText="Keep Session"
+        isDestructive={true}
+        onConfirm={confirmDelete}
+        onCancel={() => setSessionToDelete(null)}
+      />
     </div>
   );
 };
+
 export default Dashboard;
