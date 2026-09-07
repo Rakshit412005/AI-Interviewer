@@ -97,15 +97,15 @@ const SessionCard = ({ session, onClick, onDelete }) => {
 
   const statusConfig = {
     completed: {
-      badge: 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20',
+      badge: 'bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 border-emerald-500/30',
       label: 'Completed',
     },
     'in-progress': {
-      badge: 'bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20',
+      badge: 'bg-amber-500/10 text-amber-700 dark:text-amber-300 border-amber-500/30',
       label: 'In Progress',
     },
     pending: {
-      badge: 'bg-blue-500/10 text-blue-600 dark:text-blue-400 border-blue-500/20',
+      badge: 'bg-blue-500/10 text-blue-700 dark:text-blue-300 border-blue-500/30',
       label: 'Pending',
     },
   }[session.status] || {
@@ -118,7 +118,7 @@ const SessionCard = ({ session, onClick, onDelete }) => {
     : '--';
 
   const scoreTextColor = session.status === 'completed'
-    ? (session.overallScore >= 75 ? 'text-emerald-600 dark:text-emerald-400' : 'text-amber-500 dark:text-amber-400')
+    ? (session.overallScore >= 75 ? 'text-emerald-600 dark:text-emerald-400' : 'text-amber-600 dark:text-amber-400')
     : 'text-content-subtle';
 
   return (
@@ -128,7 +128,7 @@ const SessionCard = ({ session, onClick, onDelete }) => {
     >
       {/* Domain Identity & Details */}
       <div className="flex items-center gap-4 w-full md:w-auto flex-grow min-w-0">
-        <div className="w-11 h-11 sm:w-12 sm:h-12 shrink-0 rounded-xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/15 flex items-center justify-center transition-colors group-hover:bg-emerald-500/15">
+        <div className="w-11 h-11 sm:w-12 sm:h-12 shrink-0 rounded-xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 flex items-center justify-center transition-colors group-hover:bg-emerald-500/15">
           {getRoleIcon(session.role)}
         </div>
 
@@ -139,7 +139,7 @@ const SessionCard = ({ session, onClick, onDelete }) => {
           <div className="flex items-center gap-2 text-xs text-content-muted mt-1">
             <span>{new Date(session.createdAt).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })}</span>
             <span className="text-content-subtle">•</span>
-            <span className="bg-surface-inset text-content-muted px-2 py-0.5 rounded-md text-[11px] font-medium">
+            <span className="bg-surface-inset text-content-main font-semibold px-2 py-0.5 rounded-md text-[11px] border border-line-subtle">
               {session.level}
             </span>
           </div>
@@ -149,7 +149,7 @@ const SessionCard = ({ session, onClick, onDelete }) => {
       {/* Score & Status Metrics */}
       <div className="flex items-center justify-between md:justify-end gap-6 w-full md:w-auto border-t md:border-t-0 border-line-subtle pt-3 md:pt-0">
         <div className="text-left md:text-center shrink-0">
-          <p className="text-[10px] font-semibold text-content-subtle uppercase tracking-wider">Overall Score</p>
+          <p className="text-[10px] font-bold text-content-muted uppercase tracking-wider">Overall Score</p>
           <p className={`text-xl sm:text-2xl font-black ${scoreTextColor} leading-none mt-1`}>
             {scoreDisplay}
           </p>
@@ -159,7 +159,7 @@ const SessionCard = ({ session, onClick, onDelete }) => {
           <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider border ${statusConfig.badge}`}>
             {statusConfig.label}
           </span>
-          <span className="text-emerald-600 dark:text-emerald-400 font-semibold text-xs flex items-center gap-1 group-hover:translate-x-0.5 transition-transform">
+          <span className="text-emerald-600 dark:text-emerald-400 font-bold text-xs flex items-center gap-1 group-hover:translate-x-0.5 transition-transform">
             {session.status === 'completed' ? 'Review Report' : 'Resume'}
             <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2.5">
               <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />

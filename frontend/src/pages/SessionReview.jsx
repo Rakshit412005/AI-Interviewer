@@ -121,26 +121,26 @@ function SessionReview() {
     }],
   };
 
-  const chartTextColor = isDark ? '#9ab3a7' : '#3f5d50';
-  const chartGridColor = isDark ? 'rgba(255, 255, 255, 0.06)' : 'rgba(0, 0, 0, 0.05)';
+  const chartTextColor = isDark ? '#9ab3a7' : '#2f4f40';
+  const chartGridColor = isDark ? 'rgba(255, 255, 255, 0.08)' : 'rgba(0, 0, 0, 0.07)';
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8 sm:py-12 space-y-8 sm:space-y-10 animate-in fade-in duration-300">
       {/* Header */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-4 border-b border-line-subtle pb-6 sm:pb-8">
         <div>
-          <div className="inline-flex items-center gap-2 px-2.5 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400 text-xs font-bold uppercase tracking-wider mb-2">
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-700 dark:text-emerald-300 text-xs font-bold uppercase tracking-wider mb-2">
+            <span className="w-2 h-2 rounded-full bg-emerald-500" />
             Interview Evaluation Completed
           </div>
           <h1 className="text-2xl sm:text-4xl font-extrabold text-content-main tracking-tight font-heading">
-            {role} <span className="text-content-subtle font-normal text-lg sm:text-2xl">({level})</span>
+            {role} <span className="text-content-muted font-normal text-lg sm:text-2xl">({level})</span>
           </h1>
         </div>
 
         <Link
           to="/"
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold text-content-muted hover:text-content-main bg-surface-elevated hover:bg-surface-hover border border-line-subtle transition-all duration-150"
+          className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold text-content-main hover:text-emerald-600 dark:hover:text-emerald-400 bg-surface-elevated hover:bg-surface-hover border border-line-subtle transition-all duration-150 shadow-sm"
         >
           <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
             <path strokeLinecap="round" strokeLinejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
@@ -161,20 +161,20 @@ function SessionReview() {
             key={i}
             className={`bg-surface-card border p-5 sm:p-6 rounded-2xl shadow-sm-subtle relative overflow-hidden ${
               stat.isPrimary
-                ? 'border-emerald-500/40 bg-gradient-to-b from-emerald-500/5 to-transparent'
+                ? 'border-emerald-500/40 bg-gradient-to-b from-emerald-500/10 to-transparent'
                 : 'border-line-subtle'
             }`}
           >
             {stat.isPrimary && (
               <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-emerald-500 to-teal-500" />
             )}
-            <p className="text-[10px] font-bold text-content-subtle uppercase tracking-wider">{stat.label}</p>
+            <p className="text-[10px] font-bold text-content-muted uppercase tracking-wider">{stat.label}</p>
             <p className={`text-2xl sm:text-3xl font-black mt-2 leading-none font-heading ${
               stat.isPrimary ? 'text-emerald-600 dark:text-emerald-400' : 'text-content-main'
             }`}>
               {stat.value}
             </p>
-            <p className="text-[11px] text-content-muted mt-2">{stat.hint}</p>
+            <p className="text-[11px] text-content-muted mt-2 font-medium">{stat.hint}</p>
           </div>
         ))}
       </div>
@@ -188,7 +188,7 @@ function SessionReview() {
               Per-Question Technical Score Breakdown
             </h3>
           </div>
-          <span className="text-xs text-content-muted">Target Benchmark: 70%+</span>
+          <span className="text-xs font-semibold text-content-muted">Target Benchmark: 70%+</span>
         </div>
 
         <div className="h-60 sm:h-72">
@@ -199,10 +199,10 @@ function SessionReview() {
               plugins: {
                 legend: { display: false },
                 tooltip: {
-                  backgroundColor: isDark ? '#172523' : '#ffffff',
+                  backgroundColor: isDark ? '#152422' : '#ffffff',
                   titleColor: isDark ? '#f0fdf4' : '#0b2017',
-                  bodyColor: isDark ? '#9ab3a7' : '#3f5d50',
-                  borderColor: isDark ? 'rgba(20, 184, 166, 0.2)' : 'rgba(6, 78, 59, 0.15)',
+                  bodyColor: isDark ? '#a3bfb2' : '#2f4f40',
+                  borderColor: isDark ? 'rgba(20, 184, 166, 0.3)' : 'rgba(6, 78, 59, 0.2)',
                   borderWidth: 1,
                   padding: 10,
                   displayColors: false,
@@ -215,7 +215,7 @@ function SessionReview() {
                 y: {
                   beginAtZero: true,
                   max: 100,
-                  ticks: { color: chartTextColor, font: { size: 11 } },
+                  ticks: { color: chartTextColor, font: { size: 11, weight: 'bold' } },
                   grid: { color: chartGridColor },
                 },
                 x: {
@@ -250,39 +250,39 @@ function SessionReview() {
               {/* Question Header & Scores */}
               <div className="flex flex-col lg:flex-row justify-between items-start gap-4 border-b border-line-subtle pb-4">
                 <div className="flex items-start gap-3 flex-1">
-                  <span className="shrink-0 w-7 h-7 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400 font-bold text-xs flex items-center justify-center mt-0.5">
+                  <span className="shrink-0 w-7 h-7 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-emerald-700 dark:text-emerald-300 font-bold text-xs flex items-center justify-center mt-0.5">
                     Q{index + 1}
                   </span>
-                  <h4 className="text-base sm:text-lg font-semibold text-content-main leading-snug font-heading">
+                  <h4 className="text-base sm:text-lg font-bold text-content-main leading-snug font-heading">
                     {sanitizeQuestionText(q.questionText)}
                   </h4>
                 </div>
 
                 <div className="flex items-center gap-2 shrink-0">
                   <div className="px-3 py-1 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center gap-1.5">
-                    <span className="text-[10px] font-bold uppercase text-content-subtle">Technical</span>
-                    <span className="text-xs font-black text-emerald-600 dark:text-emerald-400">{q.technicalScore || 0}%</span>
+                    <span className="text-[10px] font-bold uppercase text-content-muted">Technical</span>
+                    <span className="text-xs font-black text-emerald-700 dark:text-emerald-300">{q.technicalScore || 0}%</span>
                   </div>
                   <div className="px-3 py-1 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center gap-1.5">
-                    <span className="text-[10px] font-bold uppercase text-content-subtle">Confidence</span>
-                    <span className="text-xs font-black text-blue-600 dark:text-blue-400">{q.confidenceScore || 0}%</span>
+                    <span className="text-[10px] font-bold uppercase text-content-muted">Confidence</span>
+                    <span className="text-xs font-black text-blue-700 dark:text-blue-300">{q.confidenceScore || 0}%</span>
                   </div>
                 </div>
               </div>
 
               {/* Candidate Submission Display */}
               <div className="space-y-2">
-                <span className="text-[10px] font-bold text-content-subtle uppercase tracking-wider block">
+                <span className="text-[10px] font-bold text-content-muted uppercase tracking-wider block">
                   Your Response
                 </span>
                 <div className="bg-surface-inset border border-line-subtle rounded-xl overflow-hidden divide-y divide-line-subtle">
                   {/* Code */}
                   {q.userSubmittedCode && q.userSubmittedCode !== "undefined" && (
                     <div className="p-4">
-                      <div className="flex items-center justify-between mb-2 text-xs font-bold text-content-muted">
+                      <div className="flex items-center justify-between mb-2 text-xs font-bold text-content-main">
                         <span>Code Implementation</span>
                       </div>
-                      <pre className="text-xs font-mono text-content-main whitespace-pre-wrap overflow-x-auto bg-surface-elevated p-3 rounded-lg border border-line-subtle">
+                      <pre className="text-xs font-mono text-slate-100 bg-slate-950 p-3.5 rounded-lg border border-slate-800 whitespace-pre-wrap overflow-x-auto">
                         {q.userSubmittedCode}
                       </pre>
                     </div>
@@ -291,8 +291,8 @@ function SessionReview() {
                   {/* Transcript */}
                   {q.userAnswerText && (
                     <div className="p-4">
-                      <div className="text-xs font-bold text-content-muted mb-1">Spoken Audio Transcript</div>
-                      <p className="text-sm text-content-main italic leading-relaxed">
+                      <div className="text-xs font-bold text-content-main mb-1.5">Spoken Audio Transcript</div>
+                      <p className="text-sm text-content-main italic leading-relaxed font-medium">
                         "{q.userAnswerText}"
                       </p>
                     </div>
@@ -300,7 +300,7 @@ function SessionReview() {
 
                   {/* No answer recorded */}
                   {(!q.userSubmittedCode || q.userSubmittedCode === "undefined") && !q.userAnswerText && (
-                    <div className="p-5 text-center text-content-subtle text-xs italic">
+                    <div className="p-5 text-center text-content-muted text-xs italic">
                       No code or audio response was recorded for this question.
                     </div>
                   )}
@@ -311,10 +311,10 @@ function SessionReview() {
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 pt-2">
                 {/* AI Analytical Feedback */}
                 <div className="space-y-2">
-                  <span className="text-[10px] font-bold text-content-subtle uppercase tracking-wider block">
+                  <span className="text-[10px] font-bold text-content-muted uppercase tracking-wider block">
                     AI Analytical Feedback
                   </span>
-                  <div className="bg-emerald-950/15 dark:bg-emerald-950/30 border-l-4 border-emerald-500 rounded-xl p-4 sm:p-5 text-sm text-content-main leading-relaxed">
+                  <div className="bg-emerald-50 dark:bg-[#11231f] border border-emerald-300 dark:border-emerald-500/30 border-l-4 border-l-emerald-500 rounded-xl p-4 sm:p-5 text-sm text-emerald-950 dark:text-emerald-50 leading-relaxed font-medium">
                     {q.aiFeedback || "No feedback recorded."}
                   </div>
                 </div>
@@ -322,17 +322,17 @@ function SessionReview() {
                 {/* Ideal Implementation */}
                 <div className="space-y-2">
                   <div className="flex items-center justify-between">
-                    <span className="text-[10px] font-bold text-content-subtle uppercase tracking-wider">
+                    <span className="text-[10px] font-bold text-content-muted uppercase tracking-wider">
                       Ideal Reference Implementation
                     </span>
                     <button
                       type="button"
                       onClick={() => copyToClipboard(formatIdealAnswer(q.idealAnswer), index)}
-                      className="text-xs font-semibold text-emerald-600 dark:text-emerald-400 hover:underline inline-flex items-center gap-1"
+                      className="text-xs font-semibold text-emerald-700 dark:text-emerald-400 hover:underline inline-flex items-center gap-1"
                     >
                       {copiedIndex === index ? (
                         <>
-                          <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
+                          <svg className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                           </svg>
                           <span>Copied</span>
@@ -347,7 +347,7 @@ function SessionReview() {
                       )}
                     </button>
                   </div>
-                  <pre className="bg-surface-inset border border-line-subtle text-content-main p-4 sm:p-5 rounded-xl text-xs overflow-x-auto whitespace-pre-wrap font-mono leading-relaxed max-h-64">
+                  <pre className="bg-slate-900 dark:bg-[#0e1817] border border-line-subtle text-slate-100 dark:text-[#f0fdf4] p-4 sm:p-5 rounded-xl text-xs overflow-x-auto whitespace-pre-wrap font-mono leading-relaxed max-h-64">
                     {formatIdealAnswer(q.idealAnswer)}
                   </pre>
                 </div>

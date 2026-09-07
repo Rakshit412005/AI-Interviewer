@@ -143,24 +143,25 @@ const Dashboard = () => {
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6 sm:py-10 space-y-8 sm:space-y-10 animate-in fade-in duration-300">
+      
       {/* Welcome Banner */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-line-subtle pb-6 sm:pb-8">
         <div>
-          <div className="inline-flex items-center gap-2 px-2.5 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400 text-xs font-semibold mb-2">
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-700 dark:text-emerald-300 text-xs font-bold uppercase tracking-wider mb-2">
+            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
             Interview Simulation Workspace
           </div>
           <h1 className="text-2xl sm:text-4xl font-extrabold text-content-main tracking-tight font-heading">
-            Welcome, <span className="text-emerald-500">{user?.name?.split(" ")[0]}</span>
+            Welcome, <span className="text-emerald-600 dark:text-emerald-400">{user?.name?.split(" ")[0]}</span>
           </h1>
           <p className="text-content-muted mt-1 text-sm sm:text-base font-normal">
-            Configure a realistic technical interview with custom role specifications.
+            Configure realistic technical interviews with adaptive AI evaluations.
           </p>
         </div>
 
         <div className="flex items-center gap-3 shrink-0">
           <div className="bg-surface-elevated px-4 py-2.5 rounded-2xl border border-line-subtle shadow-sm-subtle flex items-center gap-3">
-            <div className="w-9 h-9 rounded-xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center">
+            <div className="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center">
               <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
               </svg>
@@ -179,7 +180,9 @@ const Dashboard = () => {
 
       {/* New Interview Configuration Card */}
       <div className="bg-surface-card rounded-2xl border border-line-subtle shadow-sm-subtle overflow-hidden">
-        <div className="px-6 py-4 border-b border-line-subtle flex flex-col sm:flex-row sm:items-center justify-between gap-2 bg-surface-elevated">
+        
+        {/* Header Bar with PROMINENT AI Service Status Indicator */}
+        <div className="px-6 py-4 border-b border-line-subtle flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-surface-elevated">
           <div className="flex items-center gap-2.5">
             <div className="w-2.5 h-2.5 rounded-full bg-emerald-500" />
             <h2 className="text-base font-bold text-content-main font-heading">
@@ -187,105 +190,148 @@ const Dashboard = () => {
             </h2>
           </div>
 
-          {/* AI Telemetry Status */}
-          <div className="flex items-center gap-2 text-xs font-medium">
-            <span
-              className={`w-2 h-2 rounded-full ${
-                aiLoading
-                  ? "bg-amber-400 animate-pulse ring-2 ring-amber-400/20"
-                  : aiReady
-                    ? "bg-emerald-500 ring-2 ring-emerald-500/20"
-                    : "bg-content-subtle"
-              }`}
-            />
-            <span className="text-content-muted">
-              {aiLoading
-                ? "Waking AI service..."
-                : aiReady
-                  ? "AI Service Online"
-                  : "AI Service Standby"}
-            </span>
+          {/* Prominent, High-Contrast AI Service Status */}
+          <div>
+            {aiReady ? (
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-emerald-500/15 border border-emerald-500/40 text-emerald-800 dark:text-emerald-200 shadow-sm">
+                <span className="relative flex h-2.5 w-2.5">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+                  <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500" />
+                </span>
+                <span className="text-xs font-black tracking-wider uppercase font-mono">
+                  AI Engine Online & Ready
+                </span>
+              </div>
+            ) : aiLoading ? (
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-amber-500/15 border border-amber-500/40 text-amber-800 dark:text-amber-200 shadow-sm animate-pulse">
+                <span className="animate-spin h-3 w-3 border-2 border-amber-600 dark:border-amber-400 border-t-transparent rounded-full" />
+                <span className="text-xs font-bold tracking-wider uppercase font-mono">
+                  Connecting to AI Engine (Render)...
+                </span>
+              </div>
+            ) : (
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-surface-inset border border-line-subtle text-content-muted shadow-sm">
+                <span className="h-2 w-2 rounded-full bg-content-subtle" />
+                <span className="text-xs font-semibold tracking-wider uppercase font-mono">
+                  AI Engine Standby
+                </span>
+              </div>
+            )}
           </div>
         </div>
 
+        {/* Configuration Form Controls with Custom Dropdown Chevrons and Strong Contrast */}
         <form
           onSubmit={onSubmit}
           className="p-6 sm:p-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 sm:gap-6 items-end"
         >
+          {/* Target Role */}
           <div className="space-y-1.5">
-            <label className="text-[10px] font-bold text-content-muted uppercase tracking-wider ml-1">
+            <label className="text-[11px] font-bold text-content-main uppercase tracking-wider ml-1">
               Target Role
             </label>
-            <select
-              name="role"
-              value={formData.role}
-              onChange={onChange}
-              className="w-full bg-surface-inset border border-line-subtle rounded-xl p-3 text-sm font-semibold text-content-main focus:border-line-active focus:ring-2 focus:ring-emerald-500/20 outline-none transition-all [&>option]:bg-surface-elevated [&>option]:text-content-main"
-            >
-              {ROLES.map((role) => (
-                <option key={role} value={role}>
-                  {role}
-                </option>
-              ))}
-            </select>
+            <div className="relative">
+              <select
+                name="role"
+                value={formData.role}
+                onChange={onChange}
+                className="custom-select appearance-none w-full rounded-xl pr-10 pl-3.5 py-3 text-sm font-semibold border border-line-subtle focus:border-line-active focus:ring-2 focus:ring-emerald-500/20 outline-none transition-all cursor-pointer"
+              >
+                {ROLES.map((role) => (
+                  <option key={role} value={role}>
+                    {role}
+                  </option>
+                ))}
+              </select>
+              <div className="pointer-events-none absolute right-3.5 top-1/2 -translate-y-1/2 text-content-muted">
+                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+                </svg>
+              </div>
+            </div>
           </div>
 
           <div className="grid grid-cols-2 gap-4 lg:contents">
+            {/* Seniority Level */}
             <div className="space-y-1.5">
-              <label className="text-[10px] font-bold text-content-muted uppercase tracking-wider ml-1">
+              <label className="text-[11px] font-bold text-content-main uppercase tracking-wider ml-1">
                 Seniority Level
               </label>
-              <select
-                name="level"
-                value={formData.level}
-                onChange={onChange}
-                className="w-full bg-surface-inset border border-line-subtle rounded-xl p-3 text-sm font-semibold text-content-main focus:border-line-active focus:ring-2 focus:ring-emerald-500/20 outline-none transition-all [&>option]:bg-surface-elevated [&>option]:text-content-main"
-              >
-                {LEVELS.map((level) => (
-                  <option key={level} value={level}>
-                    {level}
-                  </option>
-                ))}
-              </select>
+              <div className="relative">
+                <select
+                  name="level"
+                  value={formData.level}
+                  onChange={onChange}
+                  className="custom-select appearance-none w-full rounded-xl pr-10 pl-3.5 py-3 text-sm font-semibold border border-line-subtle focus:border-line-active focus:ring-2 focus:ring-emerald-500/20 outline-none transition-all cursor-pointer"
+                >
+                  {LEVELS.map((level) => (
+                    <option key={level} value={level}>
+                      {level}
+                    </option>
+                  ))}
+                </select>
+                <div className="pointer-events-none absolute right-3.5 top-1/2 -translate-y-1/2 text-content-muted">
+                  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+                  </svg>
+                </div>
+              </div>
             </div>
 
+            {/* Question Count */}
             <div className="space-y-1.5">
-              <label className="text-[10px] font-bold text-content-muted uppercase tracking-wider ml-1">
+              <label className="text-[11px] font-bold text-content-main uppercase tracking-wider ml-1">
                 Question Count
               </label>
-              <select
-                name="count"
-                value={formData.count}
-                onChange={onChange}
-                className="w-full bg-surface-inset border border-line-subtle rounded-xl p-3 text-sm font-semibold text-content-main focus:border-line-active focus:ring-2 focus:ring-emerald-500/20 outline-none transition-all [&>option]:bg-surface-elevated [&>option]:text-content-main"
-              >
-                {COUNTS.map((count) => (
-                  <option key={count} value={count}>
-                    {count} Questions
-                  </option>
-                ))}
-              </select>
+              <div className="relative">
+                <select
+                  name="count"
+                  value={formData.count}
+                  onChange={onChange}
+                  className="custom-select appearance-none w-full rounded-xl pr-10 pl-3.5 py-3 text-sm font-semibold border border-line-subtle focus:border-line-active focus:ring-2 focus:ring-emerald-500/20 outline-none transition-all cursor-pointer"
+                >
+                  {COUNTS.map((count) => (
+                    <option key={count} value={count}>
+                      {count} Questions
+                    </option>
+                  ))}
+                </select>
+                <div className="pointer-events-none absolute right-3.5 top-1/2 -translate-y-1/2 text-content-muted">
+                  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+                  </svg>
+                </div>
+              </div>
             </div>
           </div>
 
+          {/* Interview Format */}
           <div className="space-y-1.5">
-            <label className="text-[10px] font-bold text-content-muted uppercase tracking-wider ml-1">
+            <label className="text-[11px] font-bold text-content-main uppercase tracking-wider ml-1">
               Interview Format
             </label>
-            <select
-              name="interviewType"
-              value={formData.interviewType}
-              onChange={onChange}
-              className="w-full bg-surface-inset border border-line-subtle rounded-xl p-3 text-sm font-semibold text-content-main focus:border-line-active focus:ring-2 focus:ring-emerald-500/20 outline-none transition-all [&>option]:bg-surface-elevated [&>option]:text-content-main"
-            >
-              {TYPES.map((type) => (
-                <option key={type.value} value={type.value}>
-                  {type.label}
-                </option>
-              ))}
-            </select>
+            <div className="relative">
+              <select
+                name="interviewType"
+                value={formData.interviewType}
+                onChange={onChange}
+                className="custom-select appearance-none w-full rounded-xl pr-10 pl-3.5 py-3 text-sm font-semibold border border-line-subtle focus:border-line-active focus:ring-2 focus:ring-emerald-500/20 outline-none transition-all cursor-pointer"
+              >
+                {TYPES.map((type) => (
+                  <option key={type.value} value={type.value}>
+                    {type.label}
+                  </option>
+                ))}
+              </select>
+              <div className="pointer-events-none absolute right-3.5 top-1/2 -translate-y-1/2 text-content-muted">
+                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+                </svg>
+              </div>
+            </div>
           </div>
 
+          {/* Start Interview CTA */}
           <button
             type="submit"
             disabled={isProcessing}
@@ -323,7 +369,7 @@ const Dashboard = () => {
             </div>
             Interview History
           </h2>
-          <span className="text-xs text-content-muted">
+          <span className="text-xs font-semibold text-content-muted">
             {sessions.length} recorded {sessions.length === 1 ? "session" : "sessions"}
           </span>
         </div>

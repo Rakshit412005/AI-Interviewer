@@ -25,8 +25,6 @@ const ROLES = [
   "Software Development Engineer (SDE)"
 ];
 
-const inputBase = 'w-full bg-surface-inset border border-line-subtle rounded-xl p-3.5 text-sm font-semibold text-content-main transition-all focus:border-line-active focus:ring-2 focus:ring-emerald-500/20 outline-none';
-
 const Profile = () => {
   const dispatch = useDispatch();
   const { user, isSuccess, isError, message, isProfileLoading } = useSelector((state) => state.auth);
@@ -72,57 +70,87 @@ const Profile = () => {
     <div className="max-w-3xl mx-auto px-4 sm:px-6 py-8 sm:py-12 pb-24 animate-in fade-in duration-300">
       <div className="bg-surface-card rounded-2xl border border-line-subtle shadow-card-elevated p-6 sm:p-10">
         <header className="mb-8 border-b border-line-subtle pb-6">
-          <div className="inline-flex items-center gap-2 px-2.5 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400 text-xs font-bold uppercase tracking-wider mb-2">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-700 dark:text-emerald-300 text-xs font-bold uppercase tracking-wider mb-2">
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
             Candidate Credentials
           </div>
           <h1 className="text-2xl sm:text-3xl font-extrabold text-content-main font-heading tracking-tight">
             Candidate Profile
           </h1>
-          <p className="text-sm text-content-muted mt-1">
-            Update your professional details and primary target technical role.
+          <p className="text-sm text-content-muted mt-1.5">
+            Update your professional identity and primary technical target role.
           </p>
         </header>
 
-        <form onSubmit={handleSubmit} className="space-y-5">
-          <FormField label="Full Name">
+        <form onSubmit={handleSubmit} className="space-y-6">
+          {/* Full Name */}
+          <div className="space-y-1.5">
+            <label className="text-[11px] font-bold text-content-main uppercase tracking-wider ml-1">
+              Full Name
+            </label>
             <input
               type="text"
-              className={inputBase}
               name="name"
               value={formData.name}
               onChange={handleChange}
               placeholder="Enter your full name"
+              className="w-full bg-surface-inset border border-line-subtle rounded-xl p-3.5 text-sm font-semibold text-content-main transition-all focus:border-line-active focus:ring-2 focus:ring-emerald-500/20 outline-none placeholder:text-content-subtle"
             />
-          </FormField>
+            <p className="text-[11px] text-content-muted ml-1">
+              Displayed on your interview sessions and analytical assessment reports.
+            </p>
+          </div>
 
-          <FormField label="Email Address (Fixed)" muted>
+          {/* Email Address (Fixed & Read-only) */}
+          <div className="space-y-1.5">
+            <div className="flex items-center justify-between ml-1">
+              <label className="text-[11px] font-bold text-content-main uppercase tracking-wider">
+                Email Address
+              </label>
+              <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-700 dark:text-emerald-300 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">
+                Verified • Read-only
+              </span>
+            </div>
             <input
               type="email"
-              className="w-full bg-surface-inset/60 border border-line-subtle rounded-xl p-3.5 text-sm font-medium text-content-subtle cursor-not-allowed"
               disabled
               value={formData.email}
-              onChange={handleChange}
+              className="w-full bg-surface-inset/80 border border-line-subtle rounded-xl p-3.5 text-sm font-semibold text-content-main/80 cursor-not-allowed select-none"
             />
-          </FormField>
+            <p className="text-[11px] text-content-muted ml-1">
+              Account email is permanently linked to your candidate authentication credentials.
+            </p>
+          </div>
 
-          <FormField label="Primary Target Role">
+          {/* Primary Target Role */}
+          <div className="space-y-1.5">
+            <label className="text-[11px] font-bold text-content-main uppercase tracking-wider ml-1">
+              Primary Target Technical Role
+            </label>
             <div className="relative">
               <select
                 name="preferredRole"
                 value={formData.preferredRole}
                 onChange={handleChange}
-                className={`${inputBase} appearance-none pr-10 [&>option]:bg-white [&>option]:text-slate-900 dark:[&>option]:bg-[#142321] dark:[&>option]:text-white`}
+                className="custom-select appearance-none w-full rounded-xl pr-10 pl-3.5 py-3.5 text-sm font-semibold border border-line-subtle focus:border-line-active focus:ring-2 focus:ring-emerald-500/20 outline-none transition-all cursor-pointer"
               >
                 {ROLES.map((role) => (
                   <option key={role} value={role}>{role}</option>
                 ))}
               </select>
-              <SelectArrow />
+              <div className="pointer-events-none absolute right-3.5 top-1/2 -translate-y-1/2 text-content-muted">
+                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+                </svg>
+              </div>
             </div>
-          </FormField>
+            <p className="text-[11px] text-content-muted ml-1">
+              This role will automatically pre-populate the setup form when creating new interview sessions.
+            </p>
+          </div>
 
-          <div className="pt-4">
+          {/* Submit Action */}
+          <div className="pt-3">
             <button
               type="submit"
               disabled={isProfileLoading}
@@ -135,7 +163,7 @@ const Profile = () => {
               {isProfileLoading ? (
                 <>
                   <span className="w-4 h-4 border-2 border-white border-t-transparent animate-spin rounded-full" />
-                  <span>Saving Changes...</span>
+                  <span>Saving Profile Changes...</span>
                 </>
               ) : (
                 'Save Changes'
@@ -149,24 +177,3 @@ const Profile = () => {
 };
 
 export default Profile;
-
-function FormField({ label, children, muted }) {
-  return (
-    <div className={`space-y-1.5 ${muted ? 'opacity-70' : ''}`}>
-      <label className="ml-1 text-[10px] font-bold text-content-muted uppercase tracking-wider">
-        {label}
-      </label>
-      {children}
-    </div>
-  );
-}
-
-function SelectArrow() {
-  return (
-    <div className="absolute right-3.5 top-1/2 -translate-y-1/2 pointer-events-none text-content-subtle">
-      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2.5">
-        <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-      </svg>
-    </div>
-  );
-}

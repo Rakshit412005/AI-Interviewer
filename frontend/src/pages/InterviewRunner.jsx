@@ -62,7 +62,7 @@ function InterviewRunner() {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selectedLanguage, setSelectedLanguage] = useState('javascript');
 
-  // Modal State for Finishing Interview
+  // In-App Modal State for Finishing Interview
   const [isFinishModalOpen, setIsFinishModalOpen] = useState(false);
 
   // If submittedLocal[0] is true, we lock Question 0 immediately.
@@ -152,7 +152,7 @@ function InterviewRunner() {
       setIsRecording(true);
       setRecordingTime(0);
       timerIntervalRef.current = setInterval(() => setRecordingTime(p => p + 1), 1000);
-    } catch (err) {
+    } catch {
       toast.error("Microphone access denied. Please grant microphone permissions.");
     }
   };
@@ -232,15 +232,15 @@ function InterviewRunner() {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6 pb-36 animate-in fade-in duration-300">
       
-      {/* --- Top Control Bar: Role, Question Indicator, Finish Action --- */}
+      {/* --- Top Control Bar: Role, Question Sequence, Finish Action --- */}
       <div className="bg-surface-card border border-line-subtle p-4 sm:p-5 rounded-2xl shadow-sm-subtle mb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-emerald-500" />
+            <span className="w-2.5 h-2.5 rounded-full bg-emerald-500" />
             <h1 className="text-lg font-bold text-content-main font-heading truncate max-w-md">
               {activeSession.role}
             </h1>
-            <span className="text-xs text-content-muted bg-surface-inset px-2 py-0.5 rounded-md font-medium">
+            <span className="text-xs text-content-muted bg-surface-inset px-2.5 py-0.5 rounded-md font-semibold border border-line-subtle">
               {activeSession.level}
             </span>
           </div>
@@ -264,7 +264,7 @@ function InterviewRunner() {
                         ? 'bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30'
                         : isPendingEvaluation
                           ? 'bg-amber-500/20 text-amber-600 dark:text-amber-400 border border-amber-500/30 animate-pulse'
-                          : 'bg-surface-inset text-content-muted hover:text-content-main hover:bg-surface-hover'
+                          : 'bg-surface-inset text-content-muted hover:text-content-main hover:bg-surface-hover border border-line-subtle'
                   }`}
                   title={`Question ${i + 1}${isDone ? ' (Evaluated)' : isPendingEvaluation ? ' (Evaluating)' : ''}`}
                 >
@@ -279,7 +279,7 @@ function InterviewRunner() {
           type="button"
           onClick={() => setIsFinishModalOpen(true)}
           disabled={isLoading}
-          className="self-start sm:self-center px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider text-rose-500 hover:text-white hover:bg-rose-600 border border-rose-500/30 transition-all active:scale-95 disabled:opacity-50"
+          className="self-start sm:self-center px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider text-rose-600 dark:text-rose-400 hover:text-white hover:bg-rose-600 border border-rose-500/30 transition-all active:scale-95 disabled:opacity-50"
         >
           {isLoading ? "Finalizing..." : "Finish Interview"}
         </button>
@@ -288,16 +288,16 @@ function InterviewRunner() {
       {/* --- Active Question Card --- */}
       <div className="bg-surface-elevated border border-line-subtle p-6 sm:p-8 rounded-2xl shadow-card-elevated mb-6 relative overflow-hidden">
         <div className="flex items-center justify-between gap-4 mb-3">
-          <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400 text-xs font-bold uppercase tracking-wider">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-700 dark:text-emerald-300 text-xs font-bold uppercase tracking-wider">
             <span>Question {currentQuestionIndex + 1} of {totalQuestions}</span>
           </div>
 
-          <span className="text-xs text-content-subtle font-medium">
+          <span className="text-xs text-content-muted font-semibold">
             {activeSession.interviewType === 'coding-mix' ? 'Oral & Code Response' : 'Oral Response'}
           </span>
         </div>
 
-        <h2 className="text-xl sm:text-2xl font-semibold text-content-main leading-relaxed font-heading">
+        <h2 className="text-xl sm:text-2xl font-bold text-content-main leading-relaxed font-heading">
           {currentQuestion?.questionText}
         </h2>
       </div>
@@ -320,12 +320,12 @@ function InterviewRunner() {
             </div>
 
             {/* Live State Badge */}
-            <span className={`text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full ${
+            <span className={`text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full ${
               isRecording
-                ? 'bg-rose-500/10 text-rose-500 border border-rose-500/20 animate-pulse'
+                ? 'bg-rose-500/15 text-rose-600 dark:text-rose-400 border border-rose-500/30 animate-pulse'
                 : currentDraft.audioBlob
-                  ? 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20'
-                  : 'bg-surface-inset text-content-subtle'
+                  ? 'bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 border border-emerald-500/30'
+                  : 'bg-surface-inset text-content-muted border border-line-subtle'
             }`}>
               {isRecording ? 'Recording Live' : currentDraft.audioBlob ? 'Audio Captured' : 'Ready'}
             </span>
@@ -341,7 +341,7 @@ function InterviewRunner() {
                   onClick={startRecording}
                   disabled={isQuestionLocked}
                   aria-label="Start recording audio response"
-                  className="w-24 h-24 rounded-full bg-surface-inset border-2 border-emerald-500/30 hover:border-emerald-500 text-emerald-600 dark:text-emerald-400 flex items-center justify-center shadow-md hover:scale-105 transition-all duration-200 group disabled:opacity-40 disabled:hover:scale-100 disabled:cursor-not-allowed"
+                  className="w-24 h-24 rounded-full bg-surface-inset border-2 border-emerald-500/40 hover:border-emerald-500 text-emerald-600 dark:text-emerald-400 flex items-center justify-center shadow-md hover:scale-105 transition-all duration-200 group disabled:opacity-40 disabled:hover:scale-100 disabled:cursor-not-allowed"
                 >
                   <svg className="w-10 h-10 group-hover:scale-110 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z" />
@@ -374,7 +374,7 @@ function InterviewRunner() {
                   </button>
                 </div>
 
-                <div className="mt-5 flex items-center gap-2 px-3 py-1 rounded-full bg-rose-500/10 border border-rose-500/20 text-rose-500 font-mono font-bold text-sm">
+                <div className="mt-5 flex items-center gap-2 px-3 py-1 rounded-full bg-rose-500/10 border border-rose-500/20 text-rose-600 dark:text-rose-400 font-mono font-bold text-sm">
                   <span className="w-2 h-2 rounded-full bg-rose-500 animate-pulse" />
                   <span>00:{recordingTime < 10 ? `0${recordingTime}` : recordingTime}</span>
                 </div>
@@ -386,7 +386,7 @@ function InterviewRunner() {
             ) : (
               // State 3: AUDIO CAPTURED
               <div className="flex flex-col items-center text-center">
-                <div className="w-16 h-16 rounded-full bg-emerald-500/10 text-emerald-500 border border-emerald-500/20 flex items-center justify-center mb-3">
+                <div className="w-16 h-16 rounded-full bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30 flex items-center justify-center mb-3">
                   <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                   </svg>
@@ -406,7 +406,7 @@ function InterviewRunner() {
                       ...prev,
                       [currentQuestionIndex]: { ...prev[currentQuestionIndex], audioBlob: null }
                     }))}
-                    className="mt-4 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold text-rose-500 hover:text-rose-400 hover:bg-rose-500/10 transition-colors"
+                    className="mt-4 inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-xs font-semibold text-rose-600 dark:text-rose-400 hover:bg-rose-500/10 border border-rose-500/20 transition-colors"
                   >
                     <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
                       <path strokeLinecap="round" strokeLinejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
@@ -419,7 +419,7 @@ function InterviewRunner() {
           </div>
 
           {/* Console Footer Tips */}
-          <div className="text-[11px] text-content-subtle border-t border-line-subtle pt-3 flex items-center justify-between">
+          <div className="text-[11px] text-content-subtle border-t border-line-subtle pt-3 flex items-center justify-between font-medium">
             <span>Audio format: WebM stereo</span>
             <span>{isQuestionLocked ? "Locked for evaluation" : "Draft saved automatically"}</span>
           </div>
@@ -427,7 +427,7 @@ function InterviewRunner() {
 
         {/* === SECTION 2: MONACO CODE EDITOR === */}
         <div className="bg-surface-card border border-line-subtle rounded-2xl overflow-hidden shadow-sm-subtle flex flex-col min-h-[380px]">
-          {/* Editor Header & Language Selector */}
+          {/* Editor Header & Language Selector with Guaranteed Contrast */}
           <div className="flex items-center justify-between px-4 py-2.5 bg-surface-elevated border-b border-line-subtle">
             <div className="flex items-center gap-2">
               <svg className="w-4 h-4 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
@@ -440,23 +440,30 @@ function InterviewRunner() {
 
             <div className="flex items-center gap-2">
               {isQuestionLocked && (
-                <span className="text-[10px] font-bold uppercase text-content-subtle bg-surface-inset px-2 py-0.5 rounded">
+                <span className="text-[10px] font-bold uppercase text-content-subtle bg-surface-inset px-2 py-0.5 rounded border border-line-subtle">
                   Read Only
                 </span>
               )}
-              {/* High-Contrast Dropdown with explicit options styling for dark/light mode */}
-              <select
-                value={selectedLanguage}
-                onChange={(e) => setSelectedLanguage(e.target.value)}
-                disabled={isQuestionLocked}
-                className="text-xs bg-surface-inset text-content-main border border-line-subtle rounded-lg px-2.5 py-1 font-semibold focus:border-line-active focus:ring-1 focus:ring-emerald-500 outline-none transition-colors disabled:opacity-50 [&>option]:bg-white [&>option]:text-slate-900 dark:[&>option]:bg-[#142321] dark:[&>option]:text-white"
-              >
-                {SUPPORTED_LANGUAGES.map(l => (
-                  <option key={l.value} value={l.value}>
-                    {l.label}
-                  </option>
-                ))}
-              </select>
+              {/* High-Contrast Dropdown with Custom Chevron */}
+              <div className="relative">
+                <select
+                  value={selectedLanguage}
+                  onChange={(e) => setSelectedLanguage(e.target.value)}
+                  disabled={isQuestionLocked}
+                  className="custom-select appearance-none pr-8 pl-2.5 py-1 text-xs font-semibold rounded-lg border border-line-subtle focus:border-line-active focus:ring-1 focus:ring-emerald-500 outline-none transition-colors disabled:opacity-50 cursor-pointer"
+                >
+                  {SUPPORTED_LANGUAGES.map(l => (
+                    <option key={l.value} value={l.value}>
+                      {l.label}
+                    </option>
+                  ))}
+                </select>
+                <div className="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 text-content-muted">
+                  <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+                  </svg>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -482,32 +489,38 @@ function InterviewRunner() {
         </div>
       </div>
 
-      {/* --- AI Feedback Presentation (High Contrast, Elevated & Readable) --- */}
+      {/* --- AI Feedback Presentation (High Contrast in Both Dark & Light Themes) --- */}
       {currentQuestion?.isEvaluated && (
-        <div className="mt-8 bg-emerald-950/20 dark:bg-emerald-950/40 border border-emerald-500/30 p-6 sm:p-7 rounded-2xl shadow-sm animate-in fade-in slide-in-from-bottom-3">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-emerald-500/20 pb-4 mb-4">
+        <div className="mt-8 bg-emerald-50 dark:bg-[#11231f] border border-emerald-300 dark:border-emerald-500/40 p-6 sm:p-7 rounded-2xl shadow-sm animate-in fade-in slide-in-from-bottom-3">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-emerald-200 dark:border-emerald-500/25 pb-4 mb-4">
             <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center">
+              <div className="w-8 h-8 rounded-lg bg-emerald-500/20 text-emerald-700 dark:text-emerald-300 flex items-center justify-center">
                 <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
                 </svg>
               </div>
               <div>
-                <h3 className="text-base font-bold text-content-main font-heading">
+                <h3 className="text-base font-bold text-emerald-950 dark:text-emerald-100 font-heading">
                   AI Analytical Feedback
                 </h3>
-                <p className="text-xs text-content-muted">Automated assessment of technical depth and conceptual accuracy</p>
+                <p className="text-xs text-emerald-800/80 dark:text-emerald-300/80">
+                  Automated assessment of technical depth and conceptual accuracy
+                </p>
               </div>
             </div>
 
             <div className="flex items-center gap-2 shrink-0">
-              <div className="px-3 py-1 rounded-xl bg-emerald-500/20 border border-emerald-500/30 text-emerald-600 dark:text-emerald-400 text-xs font-black">
+              <div className={`px-3 py-1 rounded-xl text-xs font-black border ${
+                (currentQuestion.technicalScore || 0) >= 70
+                  ? 'bg-emerald-100 dark:bg-emerald-500/25 text-emerald-900 dark:text-emerald-200 border-emerald-300 dark:border-emerald-500/40'
+                  : 'bg-amber-100 dark:bg-amber-500/25 text-amber-900 dark:text-amber-200 border-amber-300 dark:border-amber-500/40'
+              }`}>
                 Technical Score: {currentQuestion.technicalScore}/100
               </div>
             </div>
           </div>
 
-          <p className="text-content-main text-sm sm:text-base leading-relaxed whitespace-pre-line font-normal">
+          <p className="text-emerald-950 dark:text-emerald-50 text-sm sm:text-base leading-relaxed whitespace-pre-line font-medium">
             {currentQuestion.aiFeedback}
           </p>
         </div>
@@ -581,11 +594,11 @@ function InterviewRunner() {
         </button>
       </div>
 
-      {/* --- In-App Confirmation Modal for Finishing Interview --- */}
+      {/* --- Solid In-App Confirmation Modal for Finishing Interview --- */}
       <ConfirmModal
         isOpen={isFinishModalOpen}
-        title="Complete Interview Session"
-        description="Are you sure you want to finish this interview? Any unanswered questions will be finalized and the evaluation report will be compiled."
+        title="Finish Interview Session"
+        description="Are you sure you want to finalize this interview? Any unanswered questions will be submitted and your complete evaluation report will be generated."
         confirmText="Finish & View Results"
         cancelText="Return to Interview"
         isDestructive={false}
