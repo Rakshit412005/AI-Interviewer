@@ -151,7 +151,7 @@ const Dashboard = () => {
             <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
             Interview Simulation Workspace
           </div>
-          <h1 className="text-2xl sm:text-4xl font-extrabold text-content-main tracking-tight font-heading">
+          <h1 className="text-2xl sm:text-4xl font-extrabold text-content-primary tracking-tight font-heading">
             Welcome, <span className="text-emerald-600 dark:text-emerald-400">{user?.name?.split(" ")[0]}</span>
           </h1>
           <p className="text-content-muted mt-1 text-sm sm:text-base font-normal">
@@ -160,7 +160,7 @@ const Dashboard = () => {
         </div>
 
         <div className="flex items-center gap-3 shrink-0">
-          <div className="bg-surface-elevated px-4 py-2.5 rounded-2xl border border-line-subtle shadow-sm-subtle flex items-center gap-3">
+          <div className="bg-surface px-4 py-2.5 rounded-2xl border-2 border-line-subtle shadow-sm flex items-center gap-3">
             <div className="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center">
               <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
@@ -170,7 +170,7 @@ const Dashboard = () => {
               <p className="text-[10px] text-content-subtle font-bold uppercase tracking-wider">
                 Total Sessions
               </p>
-              <p className="text-xl sm:text-2xl font-black text-content-main leading-none mt-0.5">
+              <p className="text-xl sm:text-2xl font-black text-content-primary leading-none mt-0.5">
                 {sessions.length}
               </p>
             </div>
@@ -179,13 +179,13 @@ const Dashboard = () => {
       </div>
 
       {/* New Interview Configuration Card */}
-      <div className="bg-surface-card rounded-2xl border border-line-subtle shadow-sm-subtle overflow-hidden">
+      <div className="bg-surface rounded-2xl border-2 border-line-subtle shadow-card-elevated overflow-hidden">
         
         {/* Header Bar with PROMINENT AI Service Status Indicator */}
-        <div className="px-6 py-4 border-b border-line-subtle flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-surface-elevated">
+        <div className="px-6 py-4 border-b-2 border-line-subtle flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-surface-elevated">
           <div className="flex items-center gap-2.5">
             <div className="w-2.5 h-2.5 rounded-full bg-emerald-500" />
-            <h2 className="text-base font-bold text-content-main font-heading">
+            <h2 className="text-base font-bold text-content-primary font-heading">
               New Interview Configuration
             </h2>
           </div>
@@ -227,7 +227,7 @@ const Dashboard = () => {
         >
           {/* Target Role */}
           <div className="space-y-1.5">
-            <label className="text-[11px] font-bold text-content-main uppercase tracking-wider ml-1">
+            <label className="text-[11px] font-bold text-content-secondary uppercase tracking-wider ml-1">
               Target Role
             </label>
             <div className="relative">
@@ -235,7 +235,7 @@ const Dashboard = () => {
                 name="role"
                 value={formData.role}
                 onChange={onChange}
-                className="custom-select appearance-none w-full rounded-xl pr-10 pl-3.5 py-3 text-sm font-semibold border border-line-subtle focus:border-line-active focus:ring-2 focus:ring-emerald-500/20 outline-none transition-all cursor-pointer"
+                className="custom-select appearance-none w-full rounded-xl pr-10 pl-3.5 py-3 text-sm font-semibold bg-surface-input text-content-primary border-2 border-line-strong focus:border-emerald-600 focus:ring-2 focus:ring-emerald-500/20 outline-none transition-all cursor-pointer"
               >
                 {ROLES.map((role) => (
                   <option key={role} value={role}>
@@ -254,7 +254,7 @@ const Dashboard = () => {
           <div className="grid grid-cols-2 gap-4 lg:contents">
             {/* Seniority Level */}
             <div className="space-y-1.5">
-              <label className="text-[11px] font-bold text-content-main uppercase tracking-wider ml-1">
+              <label className="text-[11px] font-bold text-content-secondary uppercase tracking-wider ml-1">
                 Seniority Level
               </label>
               <div className="relative">
@@ -262,7 +262,7 @@ const Dashboard = () => {
                   name="level"
                   value={formData.level}
                   onChange={onChange}
-                  className="custom-select appearance-none w-full rounded-xl pr-10 pl-3.5 py-3 text-sm font-semibold border border-line-subtle focus:border-line-active focus:ring-2 focus:ring-emerald-500/20 outline-none transition-all cursor-pointer"
+                  className="custom-select appearance-none w-full rounded-xl pr-10 pl-3.5 py-3 text-sm font-semibold bg-surface-input text-content-primary border-2 border-line-strong focus:border-emerald-600 focus:ring-2 focus:ring-emerald-500/20 outline-none transition-all cursor-pointer"
                 >
                   {LEVELS.map((level) => (
                     <option key={level} value={level}>
@@ -280,7 +280,7 @@ const Dashboard = () => {
 
             {/* Question Count */}
             <div className="space-y-1.5">
-              <label className="text-[11px] font-bold text-content-main uppercase tracking-wider ml-1">
+              <label className="text-[11px] font-bold text-content-secondary uppercase tracking-wider ml-1">
                 Question Count
               </label>
               <div className="relative">
@@ -288,7 +288,7 @@ const Dashboard = () => {
                   name="count"
                   value={formData.count}
                   onChange={onChange}
-                  className="custom-select appearance-none w-full rounded-xl pr-10 pl-3.5 py-3 text-sm font-semibold border border-line-subtle focus:border-line-active focus:ring-2 focus:ring-emerald-500/20 outline-none transition-all cursor-pointer"
+                  className="custom-select appearance-none w-full rounded-xl pr-10 pl-3.5 py-3 text-sm font-semibold bg-surface-input text-content-primary border-2 border-line-strong focus:border-emerald-600 focus:ring-2 focus:ring-emerald-500/20 outline-none transition-all cursor-pointer"
                 >
                   {COUNTS.map((count) => (
                     <option key={count} value={count}>
@@ -307,7 +307,7 @@ const Dashboard = () => {
 
           {/* Interview Format */}
           <div className="space-y-1.5">
-            <label className="text-[11px] font-bold text-content-main uppercase tracking-wider ml-1">
+            <label className="text-[11px] font-bold text-content-secondary uppercase tracking-wider ml-1">
               Interview Format
             </label>
             <div className="relative">
@@ -315,7 +315,7 @@ const Dashboard = () => {
                 name="interviewType"
                 value={formData.interviewType}
                 onChange={onChange}
-                className="custom-select appearance-none w-full rounded-xl pr-10 pl-3.5 py-3 text-sm font-semibold border border-line-subtle focus:border-line-active focus:ring-2 focus:ring-emerald-500/20 outline-none transition-all cursor-pointer"
+                className="custom-select appearance-none w-full rounded-xl pr-10 pl-3.5 py-3 text-sm font-semibold bg-surface-input text-content-primary border-2 border-line-strong focus:border-emerald-600 focus:ring-2 focus:ring-emerald-500/20 outline-none transition-all cursor-pointer"
               >
                 {TYPES.map((type) => (
                   <option key={type.value} value={type.value}>
@@ -361,8 +361,8 @@ const Dashboard = () => {
       {/* History List Section */}
       <div className="space-y-5 pb-16 sm:pb-8">
         <div className="flex items-center justify-between px-1">
-          <h2 className="text-lg sm:text-xl font-bold text-content-main font-heading flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-lg bg-surface-elevated border border-line-subtle flex items-center justify-center text-emerald-600 dark:text-emerald-400">
+          <h2 className="text-lg sm:text-xl font-bold text-content-primary font-heading flex items-center gap-2.5">
+            <div className="w-8 h-8 rounded-lg bg-surface-elevated border-2 border-line-subtle flex items-center justify-center text-emerald-600 dark:text-emerald-400">
               <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
@@ -375,17 +375,17 @@ const Dashboard = () => {
         </div>
 
         {isLoading && sessions.length === 0 ? (
-          <div className="flex items-center justify-center py-20 bg-surface-card border border-line-subtle rounded-2xl">
+          <div className="flex items-center justify-center py-20 bg-surface border-2 border-line-subtle rounded-2xl shadow-sm">
             <div className="animate-spin h-10 w-10 border-2 border-emerald-500 border-t-transparent rounded-full" />
           </div>
         ) : sessions.length === 0 ? (
-          <div className="bg-surface-card border-2 border-dashed border-line-subtle rounded-2xl py-16 sm:py-20 text-center px-4">
+          <div className="bg-surface border-2 border-dashed border-line-subtle rounded-2xl py-16 sm:py-20 text-center px-4 shadow-sm">
             <div className="w-12 h-12 rounded-2xl bg-surface-inset text-content-muted flex items-center justify-center mx-auto mb-3">
               <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.8">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
               </svg>
             </div>
-            <p className="text-content-main font-bold text-base">No interview sessions recorded yet</p>
+            <p className="text-content-primary font-bold text-base">No interview sessions recorded yet</p>
             <p className="text-content-muted text-sm mt-1 max-w-sm mx-auto">
               Configure your desired role and question length above to start your first technical interview practice.
             </p>

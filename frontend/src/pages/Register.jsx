@@ -69,9 +69,12 @@ const Register = () => {
       {/* Ambient Lighting */}
       <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-96 h-96 bg-emerald-500/5 rounded-full blur-3xl pointer-events-none" />
 
-      <div className="w-full max-w-md bg-surface-card border border-line-subtle rounded-2xl shadow-card-elevated p-7 sm:p-9 relative z-10 animate-in fade-in duration-300">
+      <div className="w-full max-w-md bg-surface border-2 border-line-subtle rounded-2xl shadow-card-elevated p-8 sm:p-10 relative z-10 animate-in fade-in duration-300 overflow-hidden">
+        {/* Top Accent Strip */}
+        <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-emerald-500 via-teal-400 to-emerald-500" />
+
         {/* Brand Header */}
-        <div className="text-center mb-8">
+        <div className="text-center mb-8 pt-1">
           <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-600 p-2 shadow-sm text-slate-950 mb-3">
             <svg
               className="w-7 h-7"
@@ -87,10 +90,10 @@ const Register = () => {
               />
             </svg>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-content-main font-heading tracking-tight">
-            Create <span className="text-emerald-500">Account</span>
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-content-primary font-heading tracking-tight">
+            Create <span className="text-emerald-600 dark:text-emerald-400">Account</span>
           </h1>
-          <p className="text-content-muted mt-1.5 text-xs sm:text-sm">
+          <p className="text-content-muted mt-1.5 text-xs sm:text-sm font-medium">
             Join engineers practicing real-time AI technical interviews
           </p>
         </div>
@@ -98,14 +101,14 @@ const Register = () => {
         {/* Form */}
         <form onSubmit={onSubmit} className="space-y-4">
           <div className="space-y-1.5">
-            <label className="text-[10px] font-bold uppercase tracking-wider text-content-muted ml-1">
+            <label className="text-[11px] font-bold uppercase tracking-wider text-content-secondary ml-1">
               Full Name
             </label>
             <input
               type="text"
               name="name"
               value={name}
-              className="w-full p-3 bg-surface-inset border border-line-subtle rounded-xl text-sm font-medium text-content-main focus:border-line-active focus:ring-2 focus:ring-emerald-500/20 outline-none transition-all placeholder:text-content-subtle"
+              className="w-full p-3.5 bg-surface-input border-2 border-line-strong rounded-xl text-sm font-semibold text-content-primary focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 outline-none transition-all placeholder:text-content-subtle"
               placeholder="Alex Chen"
               onChange={onChange}
               required
@@ -113,14 +116,14 @@ const Register = () => {
           </div>
 
           <div className="space-y-1.5">
-            <label className="text-[10px] font-bold uppercase tracking-wider text-content-muted ml-1">
+            <label className="text-[11px] font-bold uppercase tracking-wider text-content-secondary ml-1">
               Email Address
             </label>
             <input
               type="email"
               name="email"
               value={email}
-              className="w-full p-3 bg-surface-inset border border-line-subtle rounded-xl text-sm font-medium text-content-main focus:border-line-active focus:ring-2 focus:ring-emerald-500/20 outline-none transition-all placeholder:text-content-subtle"
+              className="w-full p-3.5 bg-surface-input border-2 border-line-strong rounded-xl text-sm font-semibold text-content-primary focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 outline-none transition-all placeholder:text-content-subtle"
               placeholder="candidate@company.com"
               onChange={onChange}
               required
@@ -129,14 +132,14 @@ const Register = () => {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div className="space-y-1.5">
-              <label className="text-[10px] font-bold uppercase tracking-wider text-content-muted ml-1">
+              <label className="text-[11px] font-bold uppercase tracking-wider text-content-secondary ml-1">
                 Password
               </label>
               <input
                 type="password"
                 name="password"
                 value={password}
-                className="w-full p-3 bg-surface-inset border border-line-subtle rounded-xl text-sm font-medium text-content-main focus:border-line-active focus:ring-2 focus:ring-emerald-500/20 outline-none transition-all placeholder:text-content-subtle"
+                className="w-full p-3.5 bg-surface-input border-2 border-line-strong rounded-xl text-sm font-semibold text-content-primary focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 outline-none transition-all placeholder:text-content-subtle"
                 placeholder="••••••••••••"
                 onChange={onChange}
                 required
@@ -144,14 +147,14 @@ const Register = () => {
             </div>
 
             <div className="space-y-1.5">
-              <label className="text-[10px] font-bold uppercase tracking-wider text-content-muted ml-1">
+              <label className="text-[11px] font-bold uppercase tracking-wider text-content-secondary ml-1">
                 Confirm
               </label>
               <input
                 type="password"
                 name="password2"
                 value={password2}
-                className="w-full p-3 bg-surface-inset border border-line-subtle rounded-xl text-sm font-medium text-content-main focus:border-line-active focus:ring-2 focus:ring-emerald-500/20 outline-none transition-all placeholder:text-content-subtle"
+                className="w-full p-3.5 bg-surface-input border-2 border-line-strong rounded-xl text-sm font-semibold text-content-primary focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 outline-none transition-all placeholder:text-content-subtle"
                 placeholder="••••••••••••"
                 onChange={onChange}
                 required
@@ -161,7 +164,7 @@ const Register = () => {
 
           <button
             type="submit"
-            className="w-full mt-3 bg-emerald-600 hover:bg-emerald-500 text-white p-3 rounded-xl font-bold text-sm shadow-sm transition-all duration-150 active:scale-95 focus-visible:ring-2 focus-visible:ring-emerald-500"
+            className="w-full mt-3 bg-emerald-600 hover:bg-emerald-500 text-white p-3.5 rounded-xl font-bold text-sm shadow-sm transition-all duration-150 active:scale-95 focus-visible:ring-2 focus-visible:ring-emerald-500"
           >
             Create Candidate Account
           </button>

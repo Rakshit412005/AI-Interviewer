@@ -233,11 +233,11 @@ function InterviewRunner() {
     <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6 pb-36 animate-in fade-in duration-300">
       
       {/* --- Top Control Bar: Role, Question Sequence, Finish Action --- */}
-      <div className="bg-surface-card border border-line-subtle p-4 sm:p-5 rounded-2xl shadow-sm-subtle mb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div className="bg-surface border border-line-subtle p-4 sm:p-5 rounded-2xl shadow-sm mb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2">
             <span className="w-2.5 h-2.5 rounded-full bg-emerald-500" />
-            <h1 className="text-lg font-bold text-content-main font-heading truncate max-w-md">
+            <h1 className="text-lg font-bold text-content-primary font-heading truncate max-w-md">
               {activeSession.role}
             </h1>
             <span className="text-xs text-content-muted bg-surface-inset px-2.5 py-0.5 rounded-md font-semibold border border-line-subtle">
@@ -261,10 +261,10 @@ function InterviewRunner() {
                     isCurrent
                       ? 'bg-emerald-600 text-white ring-2 ring-emerald-500/30 shadow-sm'
                       : isDone
-                        ? 'bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30'
+                        ? 'bg-emerald-500/20 text-emerald-700 dark:text-emerald-400 border border-emerald-500/40'
                         : isPendingEvaluation
-                          ? 'bg-amber-500/20 text-amber-600 dark:text-amber-400 border border-amber-500/30 animate-pulse'
-                          : 'bg-surface-inset text-content-muted hover:text-content-main hover:bg-surface-hover border border-line-subtle'
+                          ? 'bg-amber-500/20 text-amber-700 dark:text-amber-400 border border-amber-500/40 animate-pulse'
+                          : 'bg-surface-inset text-content-muted hover:text-content-primary hover:bg-surface-hover border border-line-subtle'
                   }`}
                   title={`Question ${i + 1}${isDone ? ' (Evaluated)' : isPendingEvaluation ? ' (Evaluating)' : ''}`}
                 >
@@ -279,60 +279,62 @@ function InterviewRunner() {
           type="button"
           onClick={() => setIsFinishModalOpen(true)}
           disabled={isLoading}
-          className="self-start sm:self-center px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider text-rose-600 dark:text-rose-400 hover:text-white hover:bg-rose-600 border border-rose-500/30 transition-all active:scale-95 disabled:opacity-50"
+          className="self-start sm:self-center px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider text-rose-700 dark:text-rose-400 hover:text-white hover:bg-rose-600 bg-rose-50 dark:bg-transparent border border-rose-300 dark:border-rose-500/30 transition-all active:scale-95 disabled:opacity-50 shadow-sm"
         >
           {isLoading ? "Finalizing..." : "Finish Interview"}
         </button>
       </div>
 
       {/* --- Active Question Card --- */}
-      <div className="bg-surface-elevated border border-line-subtle p-6 sm:p-8 rounded-2xl shadow-card-elevated mb-6 relative overflow-hidden">
-        <div className="flex items-center justify-between gap-4 mb-3">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-700 dark:text-emerald-300 text-xs font-bold uppercase tracking-wider">
+      <div className="bg-surface border-2 border-line-subtle rounded-2xl shadow-card-elevated mb-6 overflow-hidden">
+        <div className="px-6 py-3.5 bg-surface-elevated border-b-2 border-line-subtle flex items-center justify-between gap-4">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-badge-success-bg border border-emerald-500/20 text-badge-success-text text-xs font-bold uppercase tracking-wider">
             <span>Question {currentQuestionIndex + 1} of {totalQuestions}</span>
           </div>
 
-          <span className="text-xs text-content-muted font-semibold">
+          <span className="text-xs text-content-muted font-bold uppercase tracking-wider">
             {activeSession.interviewType === 'coding-mix' ? 'Oral & Code Response' : 'Oral Response'}
           </span>
         </div>
 
-        <h2 className="text-xl sm:text-2xl font-bold text-content-main leading-relaxed font-heading">
-          {currentQuestion?.questionText}
-        </h2>
+        <div className="p-6 sm:p-8">
+          <h2 className="text-xl sm:text-2xl font-black text-content-primary leading-relaxed font-heading">
+            {currentQuestion?.questionText}
+          </h2>
+        </div>
       </div>
 
       {/* --- Response Workstation: Voice Recorder + Code Editor --- */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-stretch">
         
         {/* === SECTION 1: VOICE RECORDER CONSOLE === */}
-        <div className="bg-surface-card border border-line-subtle rounded-2xl p-6 shadow-sm-subtle flex flex-col justify-between min-h-[380px]">
-          <div className="flex items-center justify-between border-b border-line-subtle pb-3">
+        <div className="bg-surface border-2 border-line-subtle rounded-2xl overflow-hidden shadow-card-elevated flex flex-col justify-between min-h-[380px]">
+          <div className="flex items-center justify-between px-6 py-3.5 bg-surface-elevated border-b-2 border-line-subtle">
             <div className="flex items-center gap-2">
-              <div className="w-7 h-7 rounded-lg bg-emerald-500/10 text-emerald-500 flex items-center justify-center">
+              <div className="w-7 h-7 rounded-lg bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 flex items-center justify-center">
                 <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z" />
                 </svg>
               </div>
-              <span className="text-xs font-bold uppercase tracking-wider text-content-main">
+              <span className="text-xs font-bold uppercase tracking-wider text-content-primary">
                 Verbal Explanation
               </span>
             </div>
 
             {/* Live State Badge */}
-            <span className={`text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full ${
+            <span className={`text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full border ${
               isRecording
-                ? 'bg-rose-500/15 text-rose-600 dark:text-rose-400 border border-rose-500/30 animate-pulse'
+                ? 'bg-rose-100 text-rose-800 border-rose-300 dark:bg-rose-500/15 dark:text-rose-400 dark:border-rose-500/30 animate-pulse'
                 : currentDraft.audioBlob
-                  ? 'bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 border border-emerald-500/30'
-                  : 'bg-surface-inset text-content-muted border border-line-subtle'
+                  ? 'bg-badge-success-bg text-badge-success-text border-emerald-500/20'
+                  : 'bg-surface-inset text-content-muted border-line-subtle'
             }`}>
               {isRecording ? 'Recording Live' : currentDraft.audioBlob ? 'Audio Captured' : 'Ready'}
             </span>
           </div>
 
           {/* Interactive Recording Visual Center */}
-          <div className="flex flex-col items-center justify-center my-8">
+          <div className="flex flex-col items-center justify-center p-6 my-auto">
             {!isRecording && !currentDraft.audioBlob ? (
               // State 1: IDLE / READY TO RECORD
               <div className="flex flex-col items-center text-center">
@@ -341,13 +343,13 @@ function InterviewRunner() {
                   onClick={startRecording}
                   disabled={isQuestionLocked}
                   aria-label="Start recording audio response"
-                  className="w-24 h-24 rounded-full bg-surface-inset border-2 border-emerald-500/40 hover:border-emerald-500 text-emerald-600 dark:text-emerald-400 flex items-center justify-center shadow-md hover:scale-105 transition-all duration-200 group disabled:opacity-40 disabled:hover:scale-100 disabled:cursor-not-allowed"
+                  className="w-24 h-24 rounded-full bg-surface-inset border-2 border-emerald-500/40 hover:border-emerald-600 text-emerald-600 dark:text-emerald-400 flex items-center justify-center shadow-md hover:scale-105 transition-all duration-200 group disabled:opacity-40 disabled:hover:scale-100 disabled:cursor-not-allowed"
                 >
                   <svg className="w-10 h-10 group-hover:scale-110 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z" />
                   </svg>
                 </button>
-                <p className="mt-4 text-sm font-bold text-content-main">
+                <p className="mt-4 text-sm font-bold text-content-primary">
                   Click to Record Response
                 </p>
                 <p className="mt-1 text-xs text-content-muted max-w-xs">
@@ -374,7 +376,7 @@ function InterviewRunner() {
                   </button>
                 </div>
 
-                <div className="mt-5 flex items-center gap-2 px-3 py-1 rounded-full bg-rose-500/10 border border-rose-500/20 text-rose-600 dark:text-rose-400 font-mono font-bold text-sm">
+                <div className="mt-5 flex items-center gap-2 px-3 py-1 rounded-full bg-rose-100 dark:bg-rose-500/10 border border-rose-300 dark:border-rose-500/20 text-rose-700 dark:text-rose-400 font-mono font-bold text-sm">
                   <span className="w-2 h-2 rounded-full bg-rose-500 animate-pulse" />
                   <span>00:{recordingTime < 10 ? `0${recordingTime}` : recordingTime}</span>
                 </div>
@@ -384,18 +386,18 @@ function InterviewRunner() {
                 </p>
               </div>
             ) : (
-              // State 3: AUDIO CAPTURED
-              <div className="flex flex-col items-center text-center">
-                <div className="w-16 h-16 rounded-full bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30 flex items-center justify-center mb-3">
-                  <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
+              // State 3: AUDIO CAPTURED (Dedicated high-contrast inset container)
+              <div className="w-full max-w-sm mx-auto p-5 rounded-2xl bg-surface-ai border-2 border-line-ai flex flex-col items-center text-center shadow-sm">
+                <div className="w-14 h-14 rounded-full bg-emerald-500/20 text-emerald-700 dark:text-emerald-300 border border-emerald-500/30 flex items-center justify-center mb-2">
+                  <svg className="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                   </svg>
                 </div>
 
-                <p className="font-bold text-content-main text-base">
+                <p className="font-bold text-content-ai text-base">
                   Audio Answer Captured
                 </p>
-                <p className="text-xs text-content-muted mt-0.5">
+                <p className="text-xs text-content-ai-muted mt-0.5">
                   Your spoken response is saved in your local draft.
                 </p>
 
@@ -406,7 +408,7 @@ function InterviewRunner() {
                       ...prev,
                       [currentQuestionIndex]: { ...prev[currentQuestionIndex], audioBlob: null }
                     }))}
-                    className="mt-4 inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-xs font-semibold text-rose-600 dark:text-rose-400 hover:bg-rose-500/10 border border-rose-500/20 transition-colors"
+                    className="mt-4 inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-xs font-semibold text-rose-700 dark:text-rose-400 hover:bg-rose-100 dark:hover:bg-rose-500/10 bg-surface border border-rose-300 dark:border-rose-500/30 transition-colors shadow-sm"
                   >
                     <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
                       <path strokeLinecap="round" strokeLinejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
@@ -419,21 +421,21 @@ function InterviewRunner() {
           </div>
 
           {/* Console Footer Tips */}
-          <div className="text-[11px] text-content-subtle border-t border-line-subtle pt-3 flex items-center justify-between font-medium">
+          <div className="px-6 py-3 bg-surface-elevated text-[11px] text-content-subtle border-t-2 border-line-subtle flex items-center justify-between font-semibold">
             <span>Audio format: WebM stereo</span>
             <span>{isQuestionLocked ? "Locked for evaluation" : "Draft saved automatically"}</span>
           </div>
         </div>
 
         {/* === SECTION 2: MONACO CODE EDITOR === */}
-        <div className="bg-surface-card border border-line-subtle rounded-2xl overflow-hidden shadow-sm-subtle flex flex-col min-h-[380px]">
+        <div className="bg-surface border-2 border-line-subtle rounded-2xl overflow-hidden shadow-card-elevated flex flex-col min-h-[380px]">
           {/* Editor Header & Language Selector with Guaranteed Contrast */}
-          <div className="flex items-center justify-between px-4 py-2.5 bg-surface-elevated border-b border-line-subtle">
+          <div className="flex items-center justify-between px-4 py-2.5 bg-surface-elevated border-b-2 border-line-subtle">
             <div className="flex items-center gap-2">
-              <svg className="w-4 h-4 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+              <svg className="w-4 h-4 text-emerald-600 dark:text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
               </svg>
-              <span className="text-xs font-bold uppercase tracking-wider text-content-main">
+              <span className="text-xs font-bold uppercase tracking-wider text-content-primary">
                 Code Editor
               </span>
             </div>
@@ -450,7 +452,7 @@ function InterviewRunner() {
                   value={selectedLanguage}
                   onChange={(e) => setSelectedLanguage(e.target.value)}
                   disabled={isQuestionLocked}
-                  className="custom-select appearance-none pr-8 pl-2.5 py-1 text-xs font-semibold rounded-lg border border-line-subtle focus:border-line-active focus:ring-1 focus:ring-emerald-500 outline-none transition-colors disabled:opacity-50 cursor-pointer"
+                  className="custom-select appearance-none pr-8 pl-2.5 py-1 text-xs font-semibold rounded-lg bg-surface-input text-content-primary border-2 border-line-strong focus:border-emerald-600 outline-none transition-colors disabled:opacity-50 cursor-pointer shadow-sm"
                 >
                   {SUPPORTED_LANGUAGES.map(l => (
                     <option key={l.value} value={l.value}>
@@ -489,50 +491,50 @@ function InterviewRunner() {
         </div>
       </div>
 
-      {/* --- AI Feedback Presentation (High Contrast in Both Dark & Light Themes) --- */}
+      {/* --- AI Feedback Presentation (Semantic Tokens: High Contrast in Both Dark & Light Themes) --- */}
       {currentQuestion?.isEvaluated && (
-        <div className="mt-8 bg-emerald-50 dark:bg-[#11231f] border border-emerald-300 dark:border-emerald-500/40 p-6 sm:p-7 rounded-2xl shadow-sm animate-in fade-in slide-in-from-bottom-3">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-emerald-200 dark:border-emerald-500/25 pb-4 mb-4">
+        <div className="mt-8 bg-surface-ai border-2 border-line-ai border-l-[6px] border-l-emerald-600 dark:border-l-emerald-500 p-6 sm:p-7 rounded-2xl shadow-sm animate-in fade-in slide-in-from-bottom-3">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-line-ai pb-4 mb-4">
             <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-lg bg-emerald-500/20 text-emerald-700 dark:text-emerald-300 flex items-center justify-center">
+              <div className="w-8 h-8 rounded-lg bg-emerald-500/15 text-emerald-800 dark:text-emerald-300 flex items-center justify-center">
                 <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
                 </svg>
               </div>
               <div>
-                <h3 className="text-base font-bold text-emerald-950 dark:text-emerald-100 font-heading">
+                <h3 className="text-base font-extrabold text-content-ai font-heading">
                   AI Analytical Feedback
                 </h3>
-                <p className="text-xs text-emerald-800/80 dark:text-emerald-300/80">
+                <p className="text-xs text-content-ai-muted font-medium">
                   Automated assessment of technical depth and conceptual accuracy
                 </p>
               </div>
             </div>
 
             <div className="flex items-center gap-2 shrink-0">
-              <div className={`px-3 py-1 rounded-xl text-xs font-black border ${
+              <div className={`px-3 py-1 rounded-xl text-xs font-black border-2 ${
                 (currentQuestion.technicalScore || 0) >= 70
-                  ? 'bg-emerald-100 dark:bg-emerald-500/25 text-emerald-900 dark:text-emerald-200 border-emerald-300 dark:border-emerald-500/40'
-                  : 'bg-amber-100 dark:bg-amber-500/25 text-amber-900 dark:text-amber-200 border-amber-300 dark:border-amber-500/40'
+                  ? 'bg-badge-success-bg text-badge-success-text border-emerald-500/40'
+                  : 'bg-badge-warning-bg text-badge-warning-text border-amber-500/40'
               }`}>
                 Technical Score: {currentQuestion.technicalScore}/100
               </div>
             </div>
           </div>
 
-          <p className="text-emerald-950 dark:text-emerald-50 text-sm sm:text-base leading-relaxed whitespace-pre-line font-medium">
+          <p className="text-content-ai text-sm sm:text-base leading-relaxed whitespace-pre-line font-medium">
             {currentQuestion.aiFeedback}
           </p>
         </div>
       )}
 
       {/* --- Fixed Bottom Command Bar --- */}
-      <div className="fixed bottom-0 left-0 right-0 bg-surface-elevated/95 backdrop-blur-md border-t border-line-subtle px-4 sm:px-8 py-3.5 flex items-center justify-between z-40 shadow-card-elevated">
+      <div className="fixed bottom-0 left-0 right-0 bg-surface-elevated/95 backdrop-blur-md border-t-2 border-line-subtle px-4 sm:px-8 py-3.5 flex items-center justify-between z-40 shadow-[0_-4px_20px_rgba(0,0,0,0.08)] dark:shadow-card-elevated">
         <button
           type="button"
           onClick={() => handleNavigation(currentQuestionIndex - 1)}
           disabled={currentQuestionIndex === 0}
-          className="px-4 py-2 rounded-xl text-sm font-semibold text-content-muted hover:text-content-main hover:bg-surface-hover transition-colors disabled:opacity-30 disabled:pointer-events-none flex items-center gap-1.5"
+          className="px-4 py-2 rounded-xl text-sm font-semibold text-content-secondary hover:text-content-primary hover:bg-surface-hover transition-colors disabled:opacity-30 disabled:pointer-events-none flex items-center gap-1.5"
         >
           <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
             <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
@@ -543,7 +545,7 @@ function InterviewRunner() {
         {/* Center Submission Controller & Status */}
         <div className="flex flex-col items-center gap-1">
           {isProcessing && message && (
-            <div className="flex items-center gap-1.5 text-xs font-medium text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-3 py-0.5 rounded-full animate-pulse">
+            <div className="flex items-center gap-1.5 text-xs font-semibold text-badge-success-text bg-badge-success-bg border border-emerald-500/20 px-3 py-0.5 rounded-full animate-pulse">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-ping" />
               <span>AI Engine: {message}...</span>
             </div>
@@ -585,7 +587,7 @@ function InterviewRunner() {
           type="button"
           onClick={() => handleNavigation(currentQuestionIndex + 1)}
           disabled={currentQuestionIndex === totalQuestions - 1}
-          className="px-4 py-2 rounded-xl text-sm font-semibold text-content-muted hover:text-content-main hover:bg-surface-hover transition-colors disabled:opacity-30 disabled:pointer-events-none flex items-center gap-1.5"
+          className="px-4 py-2 rounded-xl text-sm font-semibold text-content-secondary hover:text-content-primary hover:bg-surface-hover transition-colors disabled:opacity-30 disabled:pointer-events-none flex items-center gap-1.5"
         >
           <span className="hidden sm:inline">Next</span>
           <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">

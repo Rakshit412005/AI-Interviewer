@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { useTheme } from '../context/ThemeContext';
 
 const ConfirmModal = ({
   isOpen,
@@ -10,6 +11,8 @@ const ConfirmModal = ({
   onConfirm,
   onCancel,
 }) => {
+  const { isDark } = useTheme();
+
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (e.key === 'Escape' && isOpen) {
@@ -30,17 +33,24 @@ const ConfirmModal = ({
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-[3px] transition-opacity animate-in fade-in duration-150"
-      onClick={onCancel}
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 overflow-y-auto"
       role="dialog"
       aria-modal="true"
     >
-      {/* Solid Elevated Dialog Box (Not Transparent Glass) */}
+      {/* 1. Backdrop Dimming Overlay (Translucent Dimming, Never Glass/Blurred) */}
       <div
-        className="relative w-full max-w-md bg-white dark:bg-[#152422] border border-slate-200 dark:border-emerald-500/25 rounded-2xl shadow-[0_25px_60px_-15px_rgba(0,0,0,0.4)] dark:shadow-[0_25px_60px_-15px_rgba(0,0,0,0.8)] p-6 sm:p-7 overflow-hidden animate-in zoom-in-95 duration-150"
+        className="fixed inset-0 bg-black/45 dark:bg-black/70 transition-opacity"
+        onClick={onCancel}
+        aria-hidden="true"
+      />
+
+      {/* 2. Solid, Completely Opaque Dialog Card (Zero Transparency, Real Elevation) */}
+      <div
+        className="relative w-full max-w-md bg-surface border-2 border-line-subtle dark:border-line-strong rounded-2xl shadow-2xl p-6 sm:p-7 overflow-hidden z-10"
+        style={{ backgroundColor: isDark ? '#132421' : '#ffffff', opacity: 1 }}
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Solid Top Accent Bar */}
+        {/* Top Accent Strip */}
         <div
           className={`absolute top-0 left-0 right-0 h-1.5 ${
             isDestructive ? 'bg-rose-500' : 'bg-emerald-500'
@@ -68,31 +78,31 @@ const ConfirmModal = ({
           </div>
 
           <div className="flex-1 min-w-0">
-            <h3 className="text-xl font-bold text-slate-900 dark:text-[#f0fdf4] font-heading leading-snug">
+            <h3 className="text-xl font-extrabold text-content-primary font-heading leading-snug">
               {title}
             </h3>
-            <p className="mt-2 text-sm text-slate-700 dark:text-[#a3bfb2] leading-relaxed font-medium">
+            <p className="mt-2 text-sm text-content-muted leading-relaxed font-medium">
               {description}
             </p>
           </div>
         </div>
 
-        {/* Buttons with Clear Visual Hierarchy */}
-        <div className="mt-7 flex items-center justify-end gap-3 border-t border-slate-100 dark:border-line-subtle pt-4">
+        {/* Buttons with Clear SaaS Visual Hierarchy */}
+        <div className="mt-7 flex flex-col-reverse sm:flex-row items-stretch sm:items-center justify-end gap-3 border-t-2 border-line-subtle pt-4">
           <button
             type="button"
             onClick={onCancel}
-            className="px-4 py-2.5 rounded-xl text-sm font-semibold text-slate-700 dark:text-slate-200 bg-slate-100 hover:bg-slate-200 dark:bg-[#1c2e2b] dark:hover:bg-[#253d39] border border-slate-200 dark:border-line-subtle transition-all duration-150"
+            className="px-5 py-2.5 rounded-xl text-sm font-bold text-content-secondary hover:text-content-primary bg-surface-inset hover:bg-surface-hover border-2 border-line-subtle hover:border-line-strong transition-all active:scale-95 text-center"
           >
             {cancelText}
           </button>
           <button
             type="button"
             onClick={onConfirm}
-            className={`px-5 py-2.5 rounded-xl text-sm font-bold text-white shadow-md transition-all duration-150 active:scale-95 ${
+            className={`px-6 py-2.5 rounded-xl text-sm font-bold text-white shadow-md shadow-emerald-900/20 hover:shadow-emerald-900/30 transition-all active:scale-95 focus-visible:ring-2 text-center ${
               isDestructive
-                ? 'bg-rose-600 hover:bg-rose-500 focus-visible:ring-2 focus-visible:ring-rose-500'
-                : 'bg-emerald-600 hover:bg-emerald-500 focus-visible:ring-2 focus-visible:ring-emerald-500'
+                ? 'bg-rose-600 hover:bg-rose-500 focus-visible:ring-rose-500'
+                : 'bg-emerald-600 hover:bg-emerald-500 focus-visible:ring-emerald-500'
             }`}
           >
             {confirmText}

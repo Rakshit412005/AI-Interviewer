@@ -44,7 +44,7 @@ const Header = () => {
               </svg>
             </div>
 
-            <span className="font-heading font-black text-lg sm:text-xl tracking-tight text-content-main leading-tight group-hover:text-emerald-500 transition-colors">
+            <span className="font-heading font-black text-lg sm:text-xl tracking-tight text-content-primary leading-tight group-hover:text-emerald-500 transition-colors">
               AI <span className="text-emerald-500 font-extrabold">INT</span><span className="hidden sm:inline">erviewer</span>
             </span>
           </Link>
@@ -55,10 +55,10 @@ const Header = () => {
               <>
                 <Link
                   to="/"
-                  className={`px-3.5 py-1.5 rounded-lg text-sm font-medium transition-all duration-150 ${
+                  className={`px-3.5 py-1.5 rounded-lg text-sm transition-all duration-150 ${
                     isActive('/')
-                      ? 'text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 font-semibold'
-                      : 'text-content-muted hover:text-content-main hover:bg-surface-hover'
+                      ? 'text-badge-success-text bg-badge-success-bg font-bold'
+                      : 'text-content-secondary hover:text-content-primary hover:bg-surface-hover font-medium'
                   }`}
                 >
                   Dashboard
@@ -66,10 +66,10 @@ const Header = () => {
 
                 <Link
                   to="/profile"
-                  className={`px-3.5 py-1.5 rounded-lg text-sm font-medium transition-all duration-150 ${
+                  className={`px-3.5 py-1.5 rounded-lg text-sm transition-all duration-150 ${
                     isActive('/profile')
-                      ? 'text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 font-semibold'
-                      : 'text-content-muted hover:text-content-main hover:bg-surface-hover'
+                      ? 'text-badge-success-text bg-badge-success-bg font-bold'
+                      : 'text-content-secondary hover:text-content-primary hover:bg-surface-hover font-medium'
                   }`}
                 >
                   Profile
@@ -78,9 +78,9 @@ const Header = () => {
                 <div className="h-4 w-px bg-line-subtle mx-2" />
 
                 {/* Candidate Identity: Seamlessly Integrated, Not Outlined Pill */}
-                <div className="flex items-center gap-2 px-2.5 py-1 text-xs font-semibold text-content-main select-none">
+                <div className="flex items-center gap-2 px-2.5 py-1 text-xs font-bold text-content-primary select-none">
                   <span className="w-2 h-2 rounded-full bg-emerald-500 ring-4 ring-emerald-500/20 animate-pulse" />
-                  <span className="truncate max-w-[120px] font-medium">{user.name.split(' ')[0]}</span>
+                  <span className="truncate max-w-[120px]">{user.name.split(' ')[0]}</span>
                 </div>
 
                 {/* Tactile Seamless Theme Toggle */}
@@ -89,7 +89,7 @@ const Header = () => {
                   type="button"
                   aria-label={isDark ? "Switch to light theme" : "Switch to dark theme"}
                   title={isDark ? "Switch to light theme" : "Switch to dark theme"}
-                  className="p-2 rounded-xl text-content-muted hover:text-content-main hover:bg-surface-hover transition-colors focus-visible:ring-2 focus-visible:ring-emerald-500 ml-1"
+                  className="p-2 rounded-xl text-content-secondary hover:text-content-primary hover:bg-surface-hover transition-colors focus-visible:ring-2 focus-visible:ring-emerald-500 ml-1"
                 >
                   {isDark ? (
                     <svg className="w-4 h-4 text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
@@ -106,7 +106,7 @@ const Header = () => {
                 <button
                   onClick={onLogout}
                   type="button"
-                  className="text-xs font-semibold uppercase tracking-wider text-content-muted hover:text-rose-500 dark:hover:text-rose-400 hover:bg-rose-500/10 px-2.5 py-1.5 rounded-lg transition-colors ml-1"
+                  className="text-xs font-bold uppercase tracking-wider text-content-muted hover:text-rose-600 dark:hover:text-rose-400 hover:bg-rose-500/10 px-2.5 py-1.5 rounded-lg transition-colors ml-1"
                 >
                   Logout
                 </button>
@@ -117,8 +117,8 @@ const Header = () => {
                   to="/login"
                   className={`px-3.5 py-1.5 rounded-lg text-sm font-medium transition-all duration-150 ${
                     isActive('/login')
-                      ? 'text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 font-semibold'
-                      : 'text-content-muted hover:text-content-main hover:bg-surface-hover'
+                      ? 'text-badge-success-text bg-badge-success-bg font-bold'
+                      : 'text-content-secondary hover:text-content-primary hover:bg-surface-hover'
                   }`}
                 >
                   Login
@@ -126,7 +126,7 @@ const Header = () => {
 
                 <Link
                   to="/register"
-                  className="px-4 py-1.5 rounded-lg text-sm font-semibold text-white bg-emerald-600 hover:bg-emerald-500 shadow-sm transition-all duration-150 active:scale-95 ml-1"
+                  className="px-4 py-1.5 rounded-lg text-sm font-bold text-white bg-emerald-600 hover:bg-emerald-500 shadow-sm transition-all duration-150 active:scale-95 ml-1"
                 >
                   Register
                 </Link>
@@ -137,7 +137,7 @@ const Header = () => {
                   type="button"
                   aria-label={isDark ? "Switch to light theme" : "Switch to dark theme"}
                   title={isDark ? "Switch to light theme" : "Switch to dark theme"}
-                  className="p-2 rounded-xl text-content-muted hover:text-content-main hover:bg-surface-hover transition-colors focus-visible:ring-2 focus-visible:ring-emerald-500 ml-1"
+                  className="p-2 rounded-xl text-content-secondary hover:text-content-primary hover:bg-surface-hover transition-colors focus-visible:ring-2 focus-visible:ring-emerald-500 ml-1"
                 >
                   {isDark ? (
                     <svg className="w-4 h-4 text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
@@ -159,7 +159,7 @@ const Header = () => {
               onClick={toggleTheme}
               type="button"
               aria-label={isDark ? "Switch to light theme" : "Switch to dark theme"}
-              className="p-2 rounded-xl text-content-muted hover:text-content-main hover:bg-surface-hover transition-colors"
+              className="p-2 rounded-xl text-content-muted hover:text-content-primary hover:bg-surface-hover transition-colors"
             >
               {isDark ? (
                 <svg className="w-4 h-4 text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
@@ -176,7 +176,7 @@ const Header = () => {
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               type="button"
               aria-label="Toggle navigation menu"
-              className="p-2 rounded-xl text-content-muted hover:text-content-main hover:bg-surface-hover transition-colors"
+              className="p-2 rounded-xl text-content-muted hover:text-content-primary hover:bg-surface-hover transition-colors"
             >
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 {isMenuOpen ? (
@@ -193,20 +193,20 @@ const Header = () => {
 
       {/* --- Mobile Drawer --- */}
       {isMenuOpen && (
-        <div className="md:hidden glass-nav border-t border-line-subtle animate-in slide-in-from-top-1 duration-150">
+        <div className="md:hidden bg-surface-elevated/95 backdrop-blur-md border-t-2 border-line-subtle animate-in slide-in-from-top-1 duration-150 shadow-lg">
           <div className="px-5 py-4 space-y-2">
             {user ? (
               <>
-                <div className="flex items-center gap-2.5 p-2 rounded-lg bg-surface-inset mb-3">
+                <div className="flex items-center gap-2.5 p-2 rounded-lg bg-surface-inset border-2 border-line-subtle mb-3">
                   <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                  <span className="text-xs font-semibold text-content-main uppercase tracking-wider">{user.name}</span>
+                  <span className="text-xs font-bold text-content-primary uppercase tracking-wider">{user.name}</span>
                 </div>
 
                 <Link
                   to="/"
                   onClick={() => setIsMenuOpen(false)}
-                  className={`block py-2 px-3 rounded-lg text-sm font-medium transition-colors ${
-                    isActive('/') ? 'text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 font-semibold' : 'text-content-muted hover:text-content-main'
+                  className={`block py-2 px-3 rounded-lg text-sm font-semibold transition-colors ${
+                    isActive('/') ? 'text-badge-success-text bg-badge-success-bg' : 'text-content-muted hover:text-content-primary'
                   }`}
                 >
                   Dashboard
@@ -215,8 +215,8 @@ const Header = () => {
                 <Link
                   to="/profile"
                   onClick={() => setIsMenuOpen(false)}
-                  className={`block py-2 px-3 rounded-lg text-sm font-medium transition-colors ${
-                    isActive('/profile') ? 'text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 font-semibold' : 'text-content-muted hover:text-content-main'
+                  className={`block py-2 px-3 rounded-lg text-sm font-semibold transition-colors ${
+                    isActive('/profile') ? 'text-badge-success-text bg-badge-success-bg' : 'text-content-muted hover:text-content-primary'
                   }`}
                 >
                   Profile
@@ -228,7 +228,7 @@ const Header = () => {
                     onLogout();
                   }}
                   type="button"
-                  className="w-full mt-3 py-2 px-3 rounded-lg font-semibold text-xs uppercase tracking-wider text-rose-500 hover:bg-rose-500/10 transition-colors text-left"
+                  className="w-full mt-3 py-2 px-3 rounded-lg font-bold text-xs uppercase tracking-wider text-rose-600 dark:text-rose-400 hover:bg-rose-500/10 transition-colors text-left"
                 >
                   Logout
                 </button>
@@ -238,8 +238,8 @@ const Header = () => {
                 <Link
                   to="/login"
                   onClick={() => setIsMenuOpen(false)}
-                  className={`block py-2 px-3 rounded-lg text-sm font-medium transition-colors ${
-                    isActive('/login') ? 'text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 font-semibold' : 'text-content-muted'
+                  className={`block py-2 px-3 rounded-lg text-sm font-semibold transition-colors ${
+                    isActive('/login') ? 'text-badge-success-text bg-badge-success-bg' : 'text-content-muted'
                   }`}
                 >
                   Login
@@ -248,8 +248,8 @@ const Header = () => {
                 <Link
                   to="/register"
                   onClick={() => setIsMenuOpen(false)}
-                  className={`block py-2 px-3 rounded-lg text-sm font-medium transition-colors ${
-                    isActive('/register') ? 'text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 font-semibold' : 'text-content-muted'
+                  className={`block py-2 px-3 rounded-lg text-sm font-semibold transition-colors ${
+                    isActive('/register') ? 'text-badge-success-text bg-badge-success-bg' : 'text-content-muted'
                   }`}
                 >
                   Register

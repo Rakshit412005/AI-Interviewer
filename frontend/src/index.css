@@ -4,47 +4,157 @@
 
 @layer base {
   :root {
-    /* --- Light Theme (Calm, High-Precision Cool Mineral Off-White) --- */
-    --color-canvas: #f3f7f5;
-    --color-canvas-subtle: #e9f1ed;
-    --color-surface-elevated: #ffffff;
-    --color-surface-card: #ffffff;
-    --color-surface-inset: #ecf3ef;
-    --color-surface-hover: #e2ede6;
-    --color-text-main: #0b2017;
-    --color-text-muted: #2f4f40;
-    --color-text-subtle: #577767;
-    --color-text-inverse: #ffffff;
-    --color-border-subtle: rgba(6, 78, 59, 0.16);
-    --color-border-active: rgba(5, 150, 105, 0.6);
-    --glass-bg: rgba(255, 255, 255, 0.96);
-    --glass-border: rgba(6, 78, 59, 0.14);
+    /* ===================================================
+       LIGHT THEME (Mineral Sage Canvas & Elevated Surfaces)
+       =================================================== */
+    /* Level 1: Background Foundation */
+    --bg-page: #e6eeea;                  /* Mineral-tinted canvas (not plain white) */
+    --bg-page-subtle: #dce7e2;           /* Secondary wash */
+
+    /* Level 2: Elevated Card Surface */
+    --bg-surface: #ffffff;               /* Primary cards, containers - crisp pure white */
+    --bg-surface-elevated: #f0f6f3;      /* Header strips, dropdown popovers, modals */
+    --bg-surface-hover: #e3ede7;         /* Hover states */
+
+    /* Level 3: Inset Wells & Controls */
+    --bg-surface-inset: #ecf3ef;         /* Wells, transcript blocks, nested lists */
+    --bg-input: #f5faf7;                 /* Inputs, textareas, selects - soft tactile well */
+    --bg-input-disabled: #e2ede7;        /* Disabled/read-only inputs */
+
+    /* Level 4: Status / AI Special Surface */
+    --bg-ai-surface: #edf8f3;            /* Dedicated AI Feedback box */
+    --border-ai: #86efac;                /* Emerald accent border */
+    --text-ai: #052e16;                  /* Deep emerald text */
+    --text-ai-muted: #166534;            /* Muted emerald text */
+
+    /* Typography */
+    --text-primary: #051b12;             /* High contrast deep charcoal/green */
+    --text-secondary: #19382b;           /* Subheadings, strong labels */
+    --text-muted: #3d6051;               /* Labels, helper text, timestamps */
+    --text-subtle: #638576;              /* Placeholders, disabled text */
+    --text-inverse: #ffffff;             /* Text on dark buttons */
+
+    /* Borders & Dividers */
+    --border-subtle: #b8d1c5;            /* Card outlines, row dividers - crisp & visible */
+    --border-strong: #8eb7a3;            /* Form control borders, elevated borders */
+    --border-active: #059669;            /* Focused borders, active tabs */
+
+    /* Status Accents (Solid & Badges) */
+    --badge-success-bg: #dcfce7;
+    --badge-success-text: #14532d;
+    --badge-success-border: #86efac;
+
+    --badge-warning-bg: #fef3c7;
+    --badge-warning-text: #78350f;
+    --badge-warning-border: #fcd34d;
+
+    --badge-danger-bg: #fee2e2;
+    --badge-danger-text: #7f1d1d;
+    --badge-danger-border: #fca5a5;
+
+    --badge-info-bg: #e0f2fe;
+    --badge-info-text: #075985;
+    --badge-info-border: #7dd3fc;
+
+    /* Legacy Token Aliases for Smooth Compatibility */
+    --color-canvas: var(--bg-page);
+    --color-canvas-subtle: var(--bg-page-subtle);
+    --color-surface-card: var(--bg-surface);
+    --color-surface-elevated: var(--bg-surface-elevated);
+    --color-surface-inset: var(--bg-surface-inset);
+    --color-surface-hover: var(--bg-surface-hover);
+    --color-text-main: var(--text-primary);
+    --color-text-muted: var(--text-muted);
+    --color-text-subtle: var(--text-subtle);
+    --color-text-inverse: var(--text-inverse);
+    --color-border-subtle: var(--border-subtle);
+    --color-border-active: var(--border-active);
+
+    --glass-bg: rgba(230, 238, 234, 0.94);
+    --glass-border: rgba(6, 78, 59, 0.15);
     --ambient-glow: rgba(5, 150, 105, 0.08);
+
+    color-scheme: light;
   }
 
   .dark {
-    /* --- Dark Theme (Sophisticated Dark Emerald-Slate Canvas, NOT pitch black) --- */
-    --color-canvas: #0c1413;
-    --color-canvas-subtle: #101a19;
-    --color-surface-elevated: #152422;
-    --color-surface-card: #142220;
-    --color-surface-inset: #0e1817;
-    --color-surface-hover: #1c2e2b;
-    --color-text-main: #f0fdf4;
-    --color-text-muted: #a3bfb2;
-    --color-text-subtle: #6e8d80;
-    --color-text-inverse: #091210;
-    --color-border-subtle: rgba(20, 184, 166, 0.20);
-    --color-border-active: rgba(16, 185, 129, 0.6);
-    --glass-bg: rgba(19, 31, 29, 0.96);
-    --glass-border: rgba(255, 255, 255, 0.10);
+    /* ===================================================
+       DARK THEME (Deep Emerald-Slate & Layered Obsidian)
+       =================================================== */
+    /* Level 1: Background Foundation */
+    --bg-page: #080f0e;                  /* Deep atmospheric obsidian emerald canvas */
+    --bg-page-subtle: #0c1715;           /* Secondary wash */
+
+    /* Level 2: Elevated Card Surface */
+    --bg-surface: #132421;               /* Primary cards, containers - distinctly elevated */
+    --bg-surface-elevated: #19302b;      /* Header strips, dropdown popovers, modals */
+    --bg-surface-hover: #1e3833;         /* Hover states */
+
+    /* Level 3: Inset Wells & Controls */
+    --bg-surface-inset: #0a1514;         /* Wells, transcript blocks, nested lists */
+    --bg-input: #091312;                 /* Inputs, textareas, selects - recessed dark well */
+    --bg-input-disabled: #0c1816;        /* Disabled/read-only inputs */
+
+    /* Level 4: Status / AI Special Surface */
+    --bg-ai-surface: #102420;            /* Dedicated AI Feedback box */
+    --border-ai: rgba(16, 185, 129, 0.40); /* Emerald accent border */
+    --text-ai: #f0fdf4;                  /* Mint highlight text */
+    --text-ai-muted: #a3bfb2;            /* Muted emerald text */
+
+    /* Typography */
+    --text-primary: #f0fdf4;             /* High contrast mint-white */
+    --text-secondary: #c7e1d5;           /* Subheadings, strong labels */
+    --text-muted: #8da99d;               /* Labels, helper text, timestamps */
+    --text-subtle: #597368;              /* Placeholders, disabled text */
+    --text-inverse: #080f0e;             /* Text on light elements */
+
+    /* Borders & Dividers */
+    --border-subtle: rgba(52, 211, 153, 0.28); /* Card outlines, row dividers - crisp & visible */
+    --border-strong: rgba(52, 211, 153, 0.45); /* Form control borders, elevated borders */
+    --border-active: #10b981;            /* Focused borders, active tabs */
+
+    /* Status Accents (Solid & Badges) */
+    --badge-success-bg: rgba(16, 185, 129, 0.15);
+    --badge-success-text: #6ee7b7;
+    --badge-success-border: rgba(16, 185, 129, 0.35);
+
+    --badge-warning-bg: rgba(245, 158, 11, 0.15);
+    --badge-warning-text: #fcd34d;
+    --badge-warning-border: rgba(245, 158, 11, 0.35);
+
+    --badge-danger-bg: rgba(239, 68, 68, 0.15);
+    --badge-danger-text: #fca5a5;
+    --badge-danger-border: rgba(239, 68, 68, 0.35);
+
+    --badge-info-bg: rgba(59, 130, 246, 0.15);
+    --badge-info-text: #93c5fd;
+    --badge-info-border: rgba(59, 130, 246, 0.35);
+
+    /* Legacy Token Aliases for Smooth Compatibility */
+    --color-canvas: var(--bg-page);
+    --color-canvas-subtle: var(--bg-page-subtle);
+    --color-surface-card: var(--bg-surface);
+    --color-surface-elevated: var(--bg-surface-elevated);
+    --color-surface-inset: var(--bg-surface-inset);
+    --color-surface-hover: var(--bg-surface-hover);
+    --color-text-main: var(--text-primary);
+    --color-text-muted: var(--text-muted);
+    --color-text-subtle: var(--text-subtle);
+    --color-text-inverse: var(--text-inverse);
+    --color-border-subtle: var(--border-subtle);
+    --color-border-active: var(--border-active);
+
+    --glass-bg: rgba(19, 36, 33, 0.96);
+    --glass-border: rgba(52, 211, 153, 0.18);
     --ambient-glow: rgba(16, 185, 129, 0.14);
+
+    color-scheme: dark;
   }
 
   body {
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
-    background-color: var(--color-canvas);
-    color: var(--color-text-main);
+    background-color: var(--bg-page);
+    color: var(--text-primary);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     transition: background-color 0.2s ease, color 0.2s ease;
@@ -68,63 +178,78 @@
   }
 }
 
-/* --- Explicit Global Select & Option Theme Styling (Prevents OS/Browser Inversion) --- */
-select {
+/* ===================================================
+   ROOT-DRIVEN AUTOFILL THEME BINDING
+   Uses var(--bg-input) and var(--text-primary) dynamically!
+   =================================================== */
+input:autofill,
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active,
+textarea:autofill,
+textarea:-webkit-autofill,
+select:autofill,
+select:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 1000px var(--bg-input) inset !important;
+  box-shadow: 0 0 0 1000px var(--bg-input) inset !important;
+  -webkit-text-fill-color: var(--text-primary) !important;
+  color: var(--text-primary) !important;
+  caret-color: var(--text-primary) !important;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+input, textarea, select {
   color-scheme: light;
 }
 
-.dark select {
+.dark input, .dark textarea, .dark select {
   color-scheme: dark;
 }
 
+/* ===================================================
+   ROOT-DRIVEN NATIVE SELECT & OPTION STYLING
+   =================================================== */
 select option {
-  background-color: #ffffff !important;
-  color: #0b2017 !important;
-}
-
-.dark select option {
-  background-color: #142321 !important;
-  color: #f0fdf4 !important;
+  background-color: var(--bg-surface) !important;
+  color: var(--text-primary) !important;
 }
 
 /* Dedicated Custom Select Utility */
 .custom-select {
-  background-color: var(--color-surface-inset);
-  color: var(--color-text-main);
-  border-color: var(--color-border-subtle);
+  background-color: var(--bg-input);
+  color: var(--text-primary);
+  border-color: var(--border-strong);
 }
 
 .custom-select:focus {
-  border-color: var(--color-border-active);
+  border-color: var(--border-active);
 }
 
 .custom-select option {
-  background-color: #ffffff !important;
-  color: #0b2017 !important;
-}
-
-.dark .custom-select {
-  background-color: #0e1817 !important;
-  color: #f0fdf4 !important;
-  border-color: rgba(20, 184, 166, 0.25) !important;
-}
-
-.dark .custom-select option {
-  background-color: #142321 !important;
-  color: #f0fdf4 !important;
+  background-color: var(--bg-surface-elevated) !important;
+  color: var(--text-primary) !important;
 }
 
 /* --- Reusable Glass & Layering Utilities --- */
+.shadow-card-elevated {
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.07), 0 8px 10px -6px rgba(0, 0, 0, 0.04), 0 0 0 1px rgba(0, 0, 0, 0.03);
+}
+
+.dark .shadow-card-elevated {
+  box-shadow: 0 20px 35px -5px rgba(0, 0, 0, 0.85), 0 10px 15px -5px rgba(0, 0, 0, 0.70), 0 0 0 1px rgba(52, 211, 153, 0.18), 0 0 24px -4px rgba(16, 185, 129, 0.12);
+}
+
 .glass-nav {
   background: var(--glass-bg);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border-bottom: 1px solid var(--glass-border);
+  border-bottom: 1px solid var(--border-subtle);
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05), 0 1px 2px -1px rgba(0, 0, 0, 0.05);
 }
 
 .dark .glass-nav {
-  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.30), inset 0 1px 0 0 rgba(255, 255, 255, 0.08);
+  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.35), inset 0 1px 0 0 rgba(255, 255, 255, 0.08);
 }
 
 /* Ambient Radial Mesh */
@@ -151,56 +276,6 @@ select option {
 
 ::-webkit-scrollbar-thumb:hover {
   background: rgba(16, 185, 129, 0.5);
-}
-
-/* --- Dark Mode Surface Harmonizer (Safeguards legacy utility classes) --- */
-.dark .bg-white {
-  background-color: var(--color-surface-card) !important;
-  color: var(--color-text-main) !important;
-  border-color: var(--color-border-subtle) !important;
-}
-
-.dark .bg-slate-50,
-.dark .bg-slate-100 {
-  background-color: var(--color-surface-inset) !important;
-  color: var(--color-text-main) !important;
-  border-color: var(--color-border-subtle) !important;
-}
-
-.dark .text-slate-900,
-.dark .text-slate-800 {
-  color: var(--color-text-main) !important;
-}
-
-.dark .text-slate-700,
-.dark .text-slate-600,
-.dark .text-slate-500,
-.dark .text-slate-400 {
-  color: var(--color-text-muted) !important;
-}
-
-.dark .border-slate-100,
-.dark .border-slate-200 {
-  border-color: var(--color-border-subtle) !important;
-}
-
-.dark .border-slate-300 {
-  border-color: rgba(255, 255, 255, 0.16) !important;
-}
-
-.dark .bg-teal-50 {
-  background-color: rgba(16, 185, 129, 0.14) !important;
-  border-color: rgba(16, 185, 129, 0.3) !important;
-}
-
-.dark .text-teal-700,
-.dark .text-teal-600 {
-  color: #34d399 !important;
-}
-
-.dark .shadow-slate-200,
-.dark .shadow-xl {
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4) !important;
 }
 
 /* Reduced Motion */

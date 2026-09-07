@@ -85,13 +85,13 @@ function SessionReview() {
 
   if (!activeSession || activeSession.status !== 'completed') {
     return (
-      <div className="max-w-lg mx-auto mt-12 sm:mt-20 p-8 bg-surface-card border border-line-subtle rounded-2xl shadow-card-elevated text-center">
+      <div className="max-w-lg mx-auto mt-12 sm:mt-20 p-8 bg-surface border-2 border-line-subtle rounded-2xl shadow-card-elevated text-center">
         <div className="w-12 h-12 rounded-2xl bg-amber-500/10 text-amber-500 border border-amber-500/20 flex items-center justify-center mx-auto mb-4">
           <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
             <path strokeLinecap="round" strokeLinejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
           </svg>
         </div>
-        <h2 className="text-xl font-bold text-content-main font-heading mb-2">Report In Progress</h2>
+        <h2 className="text-xl font-bold text-content-primary font-heading mb-2">Report In Progress</h2>
         <p className="text-content-muted text-sm mb-6 leading-relaxed">
           This session is still being evaluated by the AI scoring system. Please check back shortly.
         </p>
@@ -129,18 +129,18 @@ function SessionReview() {
       {/* Header */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-4 border-b border-line-subtle pb-6 sm:pb-8">
         <div>
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-700 dark:text-emerald-300 text-xs font-bold uppercase tracking-wider mb-2">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-badge-success-bg border border-emerald-500/20 text-badge-success-text text-xs font-bold uppercase tracking-wider mb-2">
             <span className="w-2 h-2 rounded-full bg-emerald-500" />
             Interview Evaluation Completed
           </div>
-          <h1 className="text-2xl sm:text-4xl font-extrabold text-content-main tracking-tight font-heading">
+          <h1 className="text-2xl sm:text-4xl font-extrabold text-content-primary tracking-tight font-heading">
             {role} <span className="text-content-muted font-normal text-lg sm:text-2xl">({level})</span>
           </h1>
         </div>
 
         <Link
           to="/"
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold text-content-main hover:text-emerald-600 dark:hover:text-emerald-400 bg-surface-elevated hover:bg-surface-hover border border-line-subtle transition-all duration-150 shadow-sm"
+          className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold text-content-primary hover:text-emerald-600 dark:hover:text-emerald-400 bg-surface-elevated hover:bg-surface-hover border border-line-subtle transition-all duration-150 shadow-sm"
         >
           <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
             <path strokeLinecap="round" strokeLinejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
@@ -159,18 +159,18 @@ function SessionReview() {
         ].map((stat, i) => (
           <div
             key={i}
-            className={`bg-surface-card border p-5 sm:p-6 rounded-2xl shadow-sm-subtle relative overflow-hidden ${
+            className={`bg-surface border-2 p-5 sm:p-6 rounded-2xl shadow-card-elevated relative overflow-hidden ${
               stat.isPrimary
-                ? 'border-emerald-500/40 bg-gradient-to-b from-emerald-500/10 to-transparent'
+                ? 'border-emerald-500 bg-gradient-to-b from-emerald-500/10 to-transparent'
                 : 'border-line-subtle'
             }`}
           >
             {stat.isPrimary && (
-              <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-emerald-500 to-teal-500" />
+              <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-emerald-500 to-teal-500" />
             )}
             <p className="text-[10px] font-bold text-content-muted uppercase tracking-wider">{stat.label}</p>
             <p className={`text-2xl sm:text-3xl font-black mt-2 leading-none font-heading ${
-              stat.isPrimary ? 'text-emerald-600 dark:text-emerald-400' : 'text-content-main'
+              stat.isPrimary ? 'text-emerald-600 dark:text-emerald-400' : 'text-content-primary'
             }`}>
               {stat.value}
             </p>
@@ -180,11 +180,11 @@ function SessionReview() {
       </div>
 
       {/* Chart Visualization */}
-      <div className="bg-surface-card border border-line-subtle p-6 sm:p-8 rounded-2xl shadow-sm-subtle">
+      <div className="bg-surface border-2 border-line-subtle p-6 sm:p-8 rounded-2xl shadow-card-elevated">
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center gap-2">
             <div className="w-2.5 h-2.5 rounded-full bg-emerald-500" />
-            <h3 className="text-sm font-bold text-content-main uppercase tracking-wider font-heading">
+            <h3 className="text-sm font-bold text-content-primary uppercase tracking-wider font-heading">
               Per-Question Technical Score Breakdown
             </h3>
           </div>
@@ -231,12 +231,12 @@ function SessionReview() {
       {/* Detailed Per-Question Analysis */}
       <div className="space-y-6 sm:space-y-8">
         <div className="flex items-center gap-2.5 px-1">
-          <div className="w-8 h-8 rounded-lg bg-emerald-500/10 text-emerald-500 flex items-center justify-center">
+          <div className="w-8 h-8 rounded-lg bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 flex items-center justify-center">
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
               <path strokeLinecap="round" strokeLinejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
             </svg>
           </div>
-          <h3 className="text-xl font-bold text-content-main font-heading">
+          <h3 className="text-xl font-bold text-content-primary font-heading">
             Detailed Question Review & Intelligence
           </h3>
         </div>
@@ -245,44 +245,44 @@ function SessionReview() {
           {questions.map((q, index) => (
             <div
               key={index}
-              className="bg-surface-card border border-line-subtle rounded-2xl shadow-sm-subtle overflow-hidden p-6 sm:p-8 space-y-6"
+              className="bg-surface border-2 border-line-subtle rounded-2xl shadow-card-elevated overflow-hidden p-6 sm:p-8 space-y-6"
             >
               {/* Question Header & Scores */}
-              <div className="flex flex-col lg:flex-row justify-between items-start gap-4 border-b border-line-subtle pb-4">
+              <div className="flex flex-col lg:flex-row justify-between items-start gap-4 border-b-2 border-line-subtle pb-4">
                 <div className="flex items-start gap-3 flex-1">
-                  <span className="shrink-0 w-7 h-7 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-emerald-700 dark:text-emerald-300 font-bold text-xs flex items-center justify-center mt-0.5">
+                  <span className="shrink-0 w-7 h-7 rounded-lg bg-badge-success-bg border border-emerald-500/20 text-badge-success-text font-black text-xs flex items-center justify-center mt-0.5">
                     Q{index + 1}
                   </span>
-                  <h4 className="text-base sm:text-lg font-bold text-content-main leading-snug font-heading">
+                  <h4 className="text-base sm:text-lg font-black text-content-primary leading-snug font-heading">
                     {sanitizeQuestionText(q.questionText)}
                   </h4>
                 </div>
 
                 <div className="flex items-center gap-2 shrink-0">
-                  <div className="px-3 py-1 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center gap-1.5">
+                  <div className="px-3 py-1 rounded-xl bg-badge-success-bg border border-emerald-500/30 flex items-center gap-1.5">
                     <span className="text-[10px] font-bold uppercase text-content-muted">Technical</span>
-                    <span className="text-xs font-black text-emerald-700 dark:text-emerald-300">{q.technicalScore || 0}%</span>
+                    <span className="text-xs font-black text-badge-success-text">{q.technicalScore || 0}%</span>
                   </div>
-                  <div className="px-3 py-1 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center gap-1.5">
+                  <div className="px-3 py-1 rounded-xl bg-badge-info-bg border border-blue-500/30 flex items-center gap-1.5">
                     <span className="text-[10px] font-bold uppercase text-content-muted">Confidence</span>
-                    <span className="text-xs font-black text-blue-700 dark:text-blue-300">{q.confidenceScore || 0}%</span>
+                    <span className="text-xs font-black text-badge-info-text">{q.confidenceScore || 0}%</span>
                   </div>
                 </div>
               </div>
 
               {/* Candidate Submission Display */}
               <div className="space-y-2">
-                <span className="text-[10px] font-bold text-content-muted uppercase tracking-wider block">
+                <span className="text-[10px] font-bold text-content-secondary uppercase tracking-wider block">
                   Your Response
                 </span>
                 <div className="bg-surface-inset border border-line-subtle rounded-xl overflow-hidden divide-y divide-line-subtle">
                   {/* Code */}
                   {q.userSubmittedCode && q.userSubmittedCode !== "undefined" && (
                     <div className="p-4">
-                      <div className="flex items-center justify-between mb-2 text-xs font-bold text-content-main">
+                      <div className="flex items-center justify-between mb-2 text-xs font-bold text-content-primary">
                         <span>Code Implementation</span>
                       </div>
-                      <pre className="text-xs font-mono text-slate-100 bg-slate-950 p-3.5 rounded-lg border border-slate-800 whitespace-pre-wrap overflow-x-auto">
+                      <pre className="text-xs font-mono text-content-primary bg-surface-inset p-3.5 rounded-lg border border-line-strong whitespace-pre-wrap overflow-x-auto">
                         {q.userSubmittedCode}
                       </pre>
                     </div>
@@ -291,8 +291,8 @@ function SessionReview() {
                   {/* Transcript */}
                   {q.userAnswerText && (
                     <div className="p-4">
-                      <div className="text-xs font-bold text-content-main mb-1.5">Spoken Audio Transcript</div>
-                      <p className="text-sm text-content-main italic leading-relaxed font-medium">
+                      <div className="text-xs font-bold text-content-primary mb-1.5">Spoken Audio Transcript</div>
+                      <p className="text-sm text-content-primary italic leading-relaxed font-medium">
                         "{q.userAnswerText}"
                       </p>
                     </div>
@@ -311,10 +311,10 @@ function SessionReview() {
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 pt-2">
                 {/* AI Analytical Feedback */}
                 <div className="space-y-2">
-                  <span className="text-[10px] font-bold text-content-muted uppercase tracking-wider block">
+                  <span className="text-[10px] font-bold text-content-secondary uppercase tracking-wider block">
                     AI Analytical Feedback
                   </span>
-                  <div className="bg-emerald-50 dark:bg-[#11231f] border border-emerald-300 dark:border-emerald-500/30 border-l-4 border-l-emerald-500 rounded-xl p-4 sm:p-5 text-sm text-emerald-950 dark:text-emerald-50 leading-relaxed font-medium">
+                  <div className="bg-surface-ai border-2 border-line-ai border-l-[6px] border-l-emerald-600 dark:border-l-emerald-500 rounded-xl p-4 sm:p-5 text-sm text-content-ai leading-relaxed font-medium">
                     {q.aiFeedback || "No feedback recorded."}
                   </div>
                 </div>
@@ -322,13 +322,13 @@ function SessionReview() {
                 {/* Ideal Implementation */}
                 <div className="space-y-2">
                   <div className="flex items-center justify-between">
-                    <span className="text-[10px] font-bold text-content-muted uppercase tracking-wider">
+                    <span className="text-[10px] font-bold text-content-secondary uppercase tracking-wider">
                       Ideal Reference Implementation
                     </span>
                     <button
                       type="button"
                       onClick={() => copyToClipboard(formatIdealAnswer(q.idealAnswer), index)}
-                      className="text-xs font-semibold text-emerald-700 dark:text-emerald-400 hover:underline inline-flex items-center gap-1"
+                      className="text-xs font-bold text-emerald-600 dark:text-emerald-400 hover:underline inline-flex items-center gap-1"
                     >
                       {copiedIndex === index ? (
                         <>
@@ -347,7 +347,7 @@ function SessionReview() {
                       )}
                     </button>
                   </div>
-                  <pre className="bg-slate-900 dark:bg-[#0e1817] border border-line-subtle text-slate-100 dark:text-[#f0fdf4] p-4 sm:p-5 rounded-xl text-xs overflow-x-auto whitespace-pre-wrap font-mono leading-relaxed max-h-64">
+                  <pre className="bg-surface-inset border border-line-strong text-content-primary p-4 sm:p-5 rounded-xl text-xs overflow-x-auto whitespace-pre-wrap font-mono leading-relaxed max-h-64 shadow-inner">
                     {formatIdealAnswer(q.idealAnswer)}
                   </pre>
                 </div>

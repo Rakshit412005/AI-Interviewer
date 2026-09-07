@@ -3,12 +3,15 @@ import { Link } from 'react-router-dom'
 
 const NotFound = () => {
   return (
-     <div className="text-center py-20 bg-white rounded-[3rem] shadow-xl max-w-2xl mx-auto mt-10 border border-slate-100">
-      <h1 className="text-9xl font-black text-slate-200">404</h1>
-      <h2 className="text-2xl font-bold text-slate-800 mt-4 uppercase tracking-tighter">Page Not Found</h2>
-      <p className="text-slate-500 mt-2 mb-8">The interview module you're looking for doesn't exist.</p>
-      <Link to="/" className="bg-teal-600 text-white px-8 py-3 rounded-2xl font-bold hover:bg-teal-700 transition-all">
-        Back to Dashboard
+    <div className="text-center p-8 sm:p-12 bg-surface rounded-2xl shadow-card-elevated max-w-lg mx-auto mt-12 border-2 border-line-subtle animate-in fade-in duration-200">
+      <h1 className="text-8xl sm:text-9xl font-black text-line-subtle dark:text-emerald-500/20 font-heading select-none">404</h1>
+      <h2 className="text-2xl font-black text-content-primary mt-4 font-heading tracking-tight">Page Not Found</h2>
+      <p className="text-content-muted mt-2 mb-8 text-sm">The interview module or session you're looking for doesn't exist.</p>
+      <Link to="/" className="bg-emerald-600 hover:bg-emerald-500 text-white px-7 py-3 rounded-xl font-bold text-sm shadow-sm transition-all duration-150 inline-flex items-center gap-2 active:scale-95">
+        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
+          <path strokeLinecap="round" strokeLinejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+        </svg>
+        <span>Back to Dashboard</span>
       </Link>
     </div>
   )

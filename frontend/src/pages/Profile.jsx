@@ -68,16 +68,19 @@ const Profile = () => {
 
   return (
     <div className="max-w-3xl mx-auto px-4 sm:px-6 py-8 sm:py-12 pb-24 animate-in fade-in duration-300">
-      <div className="bg-surface-card rounded-2xl border border-line-subtle shadow-card-elevated p-6 sm:p-10">
-        <header className="mb-8 border-b border-line-subtle pb-6">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-700 dark:text-emerald-300 text-xs font-bold uppercase tracking-wider mb-2">
+      <div className="bg-surface rounded-2xl border-2 border-line-subtle shadow-card-elevated p-6 sm:p-10 relative overflow-hidden">
+        {/* Top Accent Strip */}
+        <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-emerald-500 via-teal-400 to-emerald-500" />
+
+        <header className="mb-8 border-b-2 border-line-subtle pb-6 pt-1">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-badge-success-bg border border-emerald-500/20 text-badge-success-text text-xs font-bold uppercase tracking-wider mb-2">
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
             Candidate Credentials
           </div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-content-main font-heading tracking-tight">
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-content-primary font-heading tracking-tight">
             Candidate Profile
           </h1>
-          <p className="text-sm text-content-muted mt-1.5">
+          <p className="text-sm text-content-muted mt-1.5 font-medium">
             Update your professional identity and primary technical target role.
           </p>
         </header>
@@ -85,7 +88,7 @@ const Profile = () => {
         <form onSubmit={handleSubmit} className="space-y-6">
           {/* Full Name */}
           <div className="space-y-1.5">
-            <label className="text-[11px] font-bold text-content-main uppercase tracking-wider ml-1">
+            <label className="text-[11px] font-bold text-content-secondary uppercase tracking-wider ml-1">
               Full Name
             </label>
             <input
@@ -94,7 +97,7 @@ const Profile = () => {
               value={formData.name}
               onChange={handleChange}
               placeholder="Enter your full name"
-              className="w-full bg-surface-inset border border-line-subtle rounded-xl p-3.5 text-sm font-semibold text-content-main transition-all focus:border-line-active focus:ring-2 focus:ring-emerald-500/20 outline-none placeholder:text-content-subtle"
+              className="w-full bg-surface-input border-2 border-line-strong rounded-xl p-3.5 text-sm font-semibold text-content-primary transition-all focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 outline-none placeholder:text-content-subtle"
             />
             <p className="text-[11px] text-content-muted ml-1">
               Displayed on your interview sessions and analytical assessment reports.
@@ -104,10 +107,10 @@ const Profile = () => {
           {/* Email Address (Fixed & Read-only) */}
           <div className="space-y-1.5">
             <div className="flex items-center justify-between ml-1">
-              <label className="text-[11px] font-bold text-content-main uppercase tracking-wider">
+              <label className="text-[11px] font-bold text-content-secondary uppercase tracking-wider">
                 Email Address
               </label>
-              <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-700 dark:text-emerald-300 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">
+              <span className="text-[10px] font-bold uppercase tracking-wider text-badge-success-text bg-badge-success-bg px-2 py-0.5 rounded border border-emerald-500/20">
                 Verified • Read-only
               </span>
             </div>
@@ -115,7 +118,7 @@ const Profile = () => {
               type="email"
               disabled
               value={formData.email}
-              className="w-full bg-surface-inset/80 border border-line-subtle rounded-xl p-3.5 text-sm font-semibold text-content-main/80 cursor-not-allowed select-none"
+              className="w-full bg-surface-input-disabled border-2 border-line-subtle rounded-xl p-3.5 text-sm font-semibold text-content-muted cursor-not-allowed select-none"
             />
             <p className="text-[11px] text-content-muted ml-1">
               Account email is permanently linked to your candidate authentication credentials.
@@ -124,7 +127,7 @@ const Profile = () => {
 
           {/* Primary Target Role */}
           <div className="space-y-1.5">
-            <label className="text-[11px] font-bold text-content-main uppercase tracking-wider ml-1">
+            <label className="text-[11px] font-bold text-content-secondary uppercase tracking-wider ml-1">
               Primary Target Technical Role
             </label>
             <div className="relative">
@@ -132,7 +135,7 @@ const Profile = () => {
                 name="preferredRole"
                 value={formData.preferredRole}
                 onChange={handleChange}
-                className="custom-select appearance-none w-full rounded-xl pr-10 pl-3.5 py-3.5 text-sm font-semibold border border-line-subtle focus:border-line-active focus:ring-2 focus:ring-emerald-500/20 outline-none transition-all cursor-pointer"
+                className="custom-select appearance-none w-full rounded-xl pr-10 pl-3.5 py-3.5 text-sm font-semibold border-2 border-line-strong bg-surface-input text-content-primary focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 outline-none transition-all cursor-pointer"
               >
                 {ROLES.map((role) => (
                   <option key={role} value={role}>{role}</option>

@@ -19,7 +19,7 @@ const App = () => {
   const { theme } = useTheme();
 
   return (
-    <div className='min-h-screen bg-canvas text-content-main ambient-mesh flex flex-col transition-colors duration-200 relative'>
+    <div className='min-h-screen bg-canvas text-content-primary ambient-mesh flex flex-col transition-colors duration-200 relative'>
       <Header />
       <main className='flex-grow container mx-auto px-4 sm:px-6 lg:px-8 py-6'>
         <Routes>

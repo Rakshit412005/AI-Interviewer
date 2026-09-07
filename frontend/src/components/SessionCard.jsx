@@ -97,19 +97,19 @@ const SessionCard = ({ session, onClick, onDelete }) => {
 
   const statusConfig = {
     completed: {
-      badge: 'bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 border-emerald-500/30',
+      badge: 'bg-badge-success-bg text-badge-success-text border-emerald-500/20',
       label: 'Completed',
     },
     'in-progress': {
-      badge: 'bg-amber-500/10 text-amber-700 dark:text-amber-300 border-amber-500/30',
+      badge: 'bg-badge-warning-bg text-badge-warning-text border-amber-500/20',
       label: 'In Progress',
     },
     pending: {
-      badge: 'bg-blue-500/10 text-blue-700 dark:text-blue-300 border-blue-500/30',
+      badge: 'bg-badge-info-bg text-badge-info-text border-blue-500/20',
       label: 'Pending',
     },
   }[session.status] || {
-    badge: 'bg-slate-500/10 text-content-muted border-line-subtle',
+    badge: 'bg-surface-inset text-content-muted border-line-subtle',
     label: session.status,
   };
 
@@ -118,28 +118,28 @@ const SessionCard = ({ session, onClick, onDelete }) => {
     : '--';
 
   const scoreTextColor = session.status === 'completed'
-    ? (session.overallScore >= 75 ? 'text-emerald-600 dark:text-emerald-400' : 'text-amber-600 dark:text-amber-400')
+    ? (session.overallScore >= 75 ? 'text-emerald-700 dark:text-emerald-400' : 'text-amber-700 dark:text-amber-400')
     : 'text-content-subtle';
 
   return (
     <div
       onClick={() => onClick(session)}
-      className="group bg-surface-card border border-line-subtle hover:border-line-active p-5 sm:p-6 rounded-2xl flex flex-col md:flex-row items-center gap-4 transition-all duration-200 hover:shadow-card-elevated active:scale-[0.99] cursor-pointer"
+      className="group bg-surface border-2 border-line-subtle hover:border-line-active p-5 sm:p-6 rounded-2xl flex flex-col md:flex-row items-center gap-4 transition-all duration-200 shadow-sm hover:shadow-md active:scale-[0.99] cursor-pointer"
     >
       {/* Domain Identity & Details */}
       <div className="flex items-center gap-4 w-full md:w-auto flex-grow min-w-0">
-        <div className="w-11 h-11 sm:w-12 sm:h-12 shrink-0 rounded-xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 flex items-center justify-center transition-colors group-hover:bg-emerald-500/15">
+        <div className="w-11 h-11 sm:w-12 sm:h-12 shrink-0 rounded-xl bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border border-emerald-500/20 flex items-center justify-center transition-colors group-hover:bg-emerald-500/15">
           {getRoleIcon(session.role)}
         </div>
 
         <div className="min-w-0 flex-1">
-          <h3 className="font-bold text-content-main text-base sm:text-lg truncate group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">
+          <h3 className="font-bold text-content-primary text-base sm:text-lg truncate group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">
             {session.role}
           </h3>
           <div className="flex items-center gap-2 text-xs text-content-muted mt-1">
             <span>{new Date(session.createdAt).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })}</span>
             <span className="text-content-subtle">•</span>
-            <span className="bg-surface-inset text-content-main font-semibold px-2 py-0.5 rounded-md text-[11px] border border-line-subtle">
+            <span className="bg-surface-inset text-content-secondary font-semibold px-2 py-0.5 rounded-md text-[11px] border border-line-strong">
               {session.level}
             </span>
           </div>
@@ -159,7 +159,7 @@ const SessionCard = ({ session, onClick, onDelete }) => {
           <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider border ${statusConfig.badge}`}>
             {statusConfig.label}
           </span>
-          <span className="text-emerald-600 dark:text-emerald-400 font-bold text-xs flex items-center gap-1 group-hover:translate-x-0.5 transition-transform">
+          <span className="text-emerald-700 dark:text-emerald-400 font-bold text-xs flex items-center gap-1 group-hover:translate-x-0.5 transition-transform">
             {session.status === 'completed' ? 'Review Report' : 'Resume'}
             <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2.5">
               <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
