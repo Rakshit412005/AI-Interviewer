@@ -1,5 +1,3 @@
-# Due to Render's free instance this application's Oral response evaluation service is currently not working, Trying to fix it ASAP also the code in the github is complete. You can also check the "Proof of Work" folder above in the repo, Thank you.
-
 ````md
 # AI Interviewer
 
